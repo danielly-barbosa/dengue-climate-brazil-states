@@ -501,6 +501,9 @@ def test_gitignore_effectiveness():
         ".Rhistory": "R history",
         "*.log": "Log files",
         ".DS_Store": "macOS files",
+        "Lab_Denv.csv": "Sensitive lab PCR data",
+        "df_sorotipo.csv": "Sensitive serotype data",
+        "*sorotipo*.csv": "Any serotype CSV",
     }
 
     for pattern, desc in patterns.items():

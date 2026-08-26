@@ -242,7 +242,7 @@ python scripts/99_combine_indexp.py
 # 2. DLNM risk models (state-level)
 cd ../dlnm/scripts
 Rscript run_all_models_offset.R
-Rscript finalizar_reports_offset.R        # if present
+Rscript finalize_reports_offset.R        # consolidate QC and summary reports
 Rscript avaliar_modelos_AIC_QAIC_<state>_offset.R
 
 # 3. Cross-state combined figures

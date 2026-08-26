@@ -30,6 +30,15 @@ venv/
 # --- Large intermediate data ---
 *_backup*.csv
 
+# --- Sensitive / restricted data (lab tests, serotypes) ---
+# Lab_Denv.csv  -> PCR results from passive surveillance
+# *_sorotipo*.csv / df_sorotipo.csv -> Dengue serotype data
+# Place these locally; do NOT push to the public repo.
+Lab_Denv.csv
+df_sorotipo.csv
+**/Lab_Denv*.csv
+**/*sorotipo*.csv
+
 # --- IDE ---
 .idea/
 .vscode/

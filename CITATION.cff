@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: If you use this repository or its results, please cite as follows.
+title: Dengue Climate-Suitability and DLNM Analysis in Brazilian States
+type: software
+date-released: 2026-08-26
+authors:
+  - family-names: Mendes
+    given-names: Calebe Pereira
+    affiliation: Postgraduate Program in Tropical Medicine (Doctoral thesis)
+    orcid: https://orcid.org/0000-0000-0000-0000
+keywords:
+  - dengue
+  - climate suitability
+  - DLNM
+  - Brazil
+  - machine learning
+  - epidemiology
+license: MIT
+repository-code: https://github.com/<your-github-handle>/dengue-climate-brazil-states

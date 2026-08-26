@@ -1,25 +1,25 @@
-# Script GPU MÁXIMO ADAPTADO - RTX 2060 SUPER Estressado ao Limite
-# Adaptado para usar dados de temp_med e rel_humid_med
 
-# CONFIGURAÇÕES EXTREMAS DE GPU
-Sys.setenv(OMP_NUM_THREADS = "28")           # Todos os threads CPU
-Sys.setenv(MKL_NUM_THREADS = "28")           # Intel MKL máximo
-Sys.setenv(CUDA_VISIBLE_DEVICES = "0")       # GPU principal
-Sys.setenv(OPENBLAS_NUM_THREADS = "28")      # OpenBLAS máximo
-Sys.setenv(CUDA_CACHE_DISABLE = "0")         # Cache CUDA habilitado
-Sys.setenv(CUDA_LAUNCH_BLOCKING = "0")       # Execução assíncrona
-Sys.setenv(CUDA_DEVICE_MAX_CONNECTIONS = "32") # Máximas conexões
 
-# Limpar ambiente agressivamente
+
+
+Sys.setenv(OMP_NUM_THREADS = "28")
+Sys.setenv(MKL_NUM_THREADS = "28")
+Sys.setenv(CUDA_VISIBLE_DEVICES = "0")
+Sys.setenv(OPENBLAS_NUM_THREADS = "28")
+Sys.setenv(CUDA_CACHE_DISABLE = "0")
+Sys.setenv(CUDA_LAUNCH_BLOCKING = "0")
+Sys.setenv(CUDA_DEVICE_MAX_CONNECTIONS = "32")
+
+
 rm(list = ls())
 gc(verbose = FALSE, reset = TRUE, full = TRUE)
 
-# Configurar CRAN
+
 local({r <- getOption("repos")
        r["CRAN"] <- "https://cloud.r-project.org/"
        options(repos=r)})
 
-# Carregar pacotes necessários
+
 require('MVSE')
 require('data.table')
 require('parallel')
@@ -29,32 +29,32 @@ require('foreach')
 require('scales')
 require('genlasso')
 
-# Configurar pbapply para máximo desempenho
-pboptions(type = "none")  # Sem barra de progresso para economizar recursos
 
-# CONFIGURAÇÃO EXTREMA DE PARALELIZAÇÃO
-n_cores <- detectCores()  # TODOS os cores (28)
+pboptions(type = "none")
+
+
+n_cores <- detectCores()
 cat("MODO EXTREMO TEMP_MED + REL_HUMID_MED: Usando TODOS os", n_cores, "núcleos CPU + GPU RTX 2060 SUPER\n")
 
-# Cluster com configuração agressiva
+
 cl <- makeCluster(n_cores, type = "PSOCK", outfile = "")
 registerDoParallel(cl)
 
-# Configurar workers para máximo desempenho
+
 clusterEvalQ(cl, {
-  Sys.setenv(OMP_NUM_THREADS = "1")  # 1 thread por worker
+  Sys.setenv(OMP_NUM_THREADS = "1")
   Sys.setenv(CUDA_VISIBLE_DEVICES = "0")
 })
 
-# Diretórios - ADAPTADO PARA DADOS TEMP_MED + REL_HUMID_MED
-setwd("d:/CÓDIGOS")
+
+setwd("..")
 dados_dir <- "dados_mvse_cidades_tempMed_humidMed"
 resultados_dir <- "indexP_tempMed_humidMed"
 
-# Criar diretório de resultados
+
 dir.create(resultados_dir, showWarnings = FALSE, recursive = TRUE)
 
-# Listar arquivos de dados
+
 arquivos_dados <- list.files(dados_dir, pattern = "*.csv", full.names = TRUE)
 total_cidades <- length(arquivos_dados)
 
@@ -74,20 +74,20 @@ cat("- nBurnin: 5000\n")
 cat("- Variáveis: temp_med, rel_humid_med, precip_tot\n")
 cat(paste(rep("=", 80), collapse = ""), "\n\n")
 
-# Função otimizada para processar uma cidade
+
 processar_cidade_extremo <- function(arquivo_dados) {
   geocode <- tools::file_path_sans_ext(basename(arquivo_dados))
-  
+
   tempo_inicio <- Sys.time()
-  
+
   tryCatch({
-    # Carregar biblioteca MVSE no worker
+
     require('MVSE')
-    
-    # Carregar dados climáticos
+
+
     dados_clima <- read.csv(arquivo_dados, stringsAsFactors = FALSE)
-    
-    # Verificar dados mínimos
+
+
     if(nrow(dados_clima) < 365) {
       return(list(
         geocode = geocode,
@@ -97,80 +97,80 @@ processar_cidade_extremo <- function(arquivo_dados) {
         arquivo_saida = NA
       ))
     }
-    
-    # Converter data
+
+
     dados_clima$date <- as.Date(dados_clima$date)
-    
-    # Verificar e tratar valores faltantes
+
+
     dados_clima <- dados_clima[complete.cases(dados_clima), ]
-    
+
     if(nrow(dados_clima) < 300) {
       return(list(
         geocode = geocode,
-        status = "ERRO", 
+        status = "ERRO",
         erro = "Muitos valores faltantes após limpeza",
         tempo = difftime(Sys.time(), tempo_inicio, units = "mins"),
         arquivo_saida = NA
       ))
     }
-    
-    # Ordenar por data
+
+
     dados_clima <- dados_clima[order(dados_clima$date), ]
-    
-    # Configurar série temporal MVSE usando o arquivo CSV diretamente
+
+
     setEmpiricalClimateSeries(arquivo_dados)
-    
-    # Configurar priors MVSE
+
+
     setMosqLifeExpPrior(
       mean = 14,
       sd = 7,
       lower = 7,
       upper = 35
     )
-    
+
     setMosqIncPerPrior(
       mean = 7,
       sd = 2,
       lower = 3,
       upper = 15
     )
-    
+
     setMosqBitingPrior(
       mean = 0.25,
       sd = 0.01,
       lower = 0.1,
       upper = 0.5
     )
-    
+
     setHumanLifeExpPrior(
       mean = 71.1,
       sd = 2,
       lower = 60,
       upper = 85
     )
-    
+
     setHumanIncPerPrior(
       mean = 5.8,
       sd = 1,
       lower = 3,
       upper = 10
     )
-    
+
     setHumanInfPerPrior(
       mean = 5.9,
       sd = 1,
       lower = 3,
       upper = 10
     )
-    
+
     setHumanMosqTransProbPrior(
       mean = 0.5,
       sd = 0.01,
       lower = 0.1,
       upper = 0.9
     )
-    
-    # Estimar coeficientes eco-epidemiológicos
+
+
     estimateEcoCoefficients(
       nMCMC = 25000,
       bMCMC = 0.5,
@@ -178,22 +178,22 @@ processar_cidade_extremo <- function(arquivo_dados) {
       cEta = 1,
       gauJump = 0.75
     )
-    
-    # Simular IndexP empírico
+
+
     simulateEmpiricalIndexP(
       nSample = 120,
       smoothing = c(7, 15, 30, 60)
     )
-    
-    # Criar diretório da cidade
+
+
     dir_cidade <- file.path(resultados_dir, geocode)
     dir.create(dir_cidade, showWarnings = FALSE, recursive = TRUE)
-    
-    # Exportar resultados
+
+
     arquivo_saida <- file.path(dir_cidade, paste0(geocode, ".estimated_indexP.csv"))
     exportEmpiricalIndexP(arquivo_saida)
-    
-    # Verificar se arquivo foi criado
+
+
     if(!file.exists(arquivo_saida)) {
       return(list(
         geocode = geocode,
@@ -203,7 +203,7 @@ processar_cidade_extremo <- function(arquivo_dados) {
         arquivo_saida = NA
       ))
     }
-    
+
     return(list(
       geocode = geocode,
       status = "SUCESSO",
@@ -211,7 +211,7 @@ processar_cidade_extremo <- function(arquivo_dados) {
       tempo = difftime(Sys.time(), tempo_inicio, units = "mins"),
       arquivo_saida = arquivo_saida
     ))
-    
+
   }, error = function(e) {
     return(list(
       geocode = geocode,
@@ -223,24 +223,24 @@ processar_cidade_extremo <- function(arquivo_dados) {
   })
 }
 
-# EXECUÇÃO PARALELA EXTREMA
+
 cat("Iniciando processamento paralelo extremo...\n")
 tempo_total_inicio <- Sys.time()
 
-# Processar todas as cidades em paralelo
+
 resultados <- pblapply(arquivos_dados, processar_cidade_extremo, cl = cl)
 
-# Finalizar cluster
+
 stopCluster(cl)
 
-# Calcular tempo total
+
 tempo_total <- difftime(Sys.time(), tempo_total_inicio, units = "mins")
 
-# Analisar resultados
+
 sucessos <- sum(sapply(resultados, function(x) x$status == "SUCESSO"))
 erros <- sum(sapply(resultados, function(x) x$status == "ERRO"))
 
-# Relatório final
+
 cat("\n")
 cat(paste(rep("=", 80), collapse = ""), "\n")
 cat("RELATÓRIO FINAL - PROCESSAMENTO MVSE TEMP_MED + REL_HUMID_MED\n")
@@ -252,7 +252,7 @@ cat("Sucessos:", sucessos, "\n")
 cat("Erros:", erros, "\n")
 cat("Taxa de sucesso:", round(sucessos/total_cidades*100, 2), "%\n")
 
-# Salvar relatório detalhado
+
 relatorio_arquivo <- paste0("relatorio_mvse_tempMed_humidMed_", format(Sys.time(), "%Y%m%d_%H%M%S"), ".txt")
 
 sink(relatorio_arquivo)

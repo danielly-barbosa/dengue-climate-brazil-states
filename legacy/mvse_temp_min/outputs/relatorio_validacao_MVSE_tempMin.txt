@@ -2,7 +2,7 @@ RELATÓRIO DE VALIDAÇÃO - MVSE TEMPERATURA MÍNIMA
 ============================================================
 
 Data da validação: 2025-10-14 18:30:09
-Arquivo analisado: d:\CÓDIGOS\resultados_MVSE_tempMin_consolidado.csv
+Arquivo analisado: ../resultados_MVSE_tempMin_consolidado.csv
 
 RESUMO EXECUTIVO:
 - Total de registros: 72,680

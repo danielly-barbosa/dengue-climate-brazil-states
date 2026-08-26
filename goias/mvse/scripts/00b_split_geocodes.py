@@ -2,8 +2,8 @@ import csv
 import os
 from collections import defaultdict
 
-input_file = r'denovo/goiás/climate.csv/goias_climate.csv'
-subfolder = r'denovo/goiás/climate.csv/geocodes'
+input_file = r'goias/mvse/outputs/goias_climate.csv'
+subfolder = r'goias/mvse/outputs/geocodes'
 
 os.makedirs(subfolder, exist_ok=True)
 

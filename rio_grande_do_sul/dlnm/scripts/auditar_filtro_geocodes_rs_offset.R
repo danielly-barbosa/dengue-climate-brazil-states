@@ -283,19 +283,19 @@ project_root <- normalizePath(file.path(paths$project_dir, "..", ".."), winslash
 state_profiles <- bind_rows(
   analyze_state_low_case_profile(
     "PE",
-    file.path(project_root, "DLNM MASS + OFFSET", "PE DLNM MASS + OFFSET", "dados", "dengue_pe_2015_2024.csv")
+    file.path(project_root, "DLNM MASS + OFFSET", "PE DLNM MASS + OFFSET", "data", "dengue_pe_2015_2024.csv")
   ),
   analyze_state_low_case_profile(
     "GO",
-    file.path(project_root, "DLNM MASS + OFFSET", "GO DLNM MASS + OFFSET", "dados", "dengue_goias_consolidado.csv")
+    file.path(project_root, "DLNM MASS + OFFSET", "GO DLNM MASS + OFFSET", "data", "dengue_goias_consolidado.csv")
   ),
   analyze_state_low_case_profile(
     "RJ",
-    file.path(project_root, "DLNM MASS + OFFSET", "RIO DE JANEIRO DLNM MASS + OFFSET", "dados", "dengue_rio_de_janeiro_consolidado.csv")
+    file.path(project_root, "DLNM MASS + OFFSET", "RIO DE JANEIRO DLNM MASS + OFFSET", "data", "dengue_rio_de_janeiro_consolidado.csv")
   ),
   analyze_state_low_case_profile(
     "RS",
-    file.path(project_root, "DLNM MASS + OFFSET", "RIO GRANDE DO SUL DLNM MASS + OFFSET", "dados", "dengue_rio_grande_do_sul_consolidado.csv")
+    file.path(project_root, "DLNM MASS + OFFSET", "RIO GRANDE DO SUL DLNM MASS + OFFSET", "data", "dengue_rio_grande_do_sul_consolidado.csv")
   )
 )
 write.csv(state_profiles, file.path(audit_dir, "comparative_low_case_geocodes_states_2017_2024.csv"), row.names = FALSE)

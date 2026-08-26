@@ -4,29 +4,29 @@ from PIL import Image, ImageFilter
 import svgutils.transform as sg
 
 
-BASE_DIR = Path(r"c:\Users\DaniLinda\Desktop\Doutorado PE\analises_individuais\DLNM MASS + OFFSET")
+BASE_DIR = Path(__file__).resolve().parents[2]
 OUTPUT_DIR = BASE_DIR / "figuras"
 
 STATE_CONFIGS = [
     (
         "PE",
-        BASE_DIR / "PE DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_PE.svg",
-        BASE_DIR / "PE DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_PE.png",
+        BASE_DIR / "PE DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_PE.svg",
+        BASE_DIR / "PE DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_PE.png",
     ),
     (
         "GO",
-        BASE_DIR / "GO DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_GO.svg",
-        BASE_DIR / "GO DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_GO.png",
+        BASE_DIR / "GO DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_GO.svg",
+        BASE_DIR / "GO DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_GO.png",
     ),
     (
         "RJ",
-        BASE_DIR / "RIO DE JANEIRO DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RJ.svg",
-        BASE_DIR / "RIO DE JANEIRO DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RJ.png",
+        BASE_DIR / "RIO DE JANEIRO DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RJ.svg",
+        BASE_DIR / "RIO DE JANEIRO DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RJ.png",
     ),
     (
         "RS",
-        BASE_DIR / "RIO GRANDE DO SUL DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RS.svg",
-        BASE_DIR / "RIO GRANDE DO SUL DLNM MASS + OFFSET" / "resultados" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RS.png",
+        BASE_DIR / "RIO GRANDE DO SUL DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RS.svg",
+        BASE_DIR / "RIO GRANDE DO SUL DLNM MASS + OFFSET" / "results" / "figuras" / "individuais" / "indexP" / "indexP_slices_lags_0_12_offset_RS.png",
     ),
 ]
 

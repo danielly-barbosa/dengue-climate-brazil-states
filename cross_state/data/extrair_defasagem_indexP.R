@@ -7,7 +7,7 @@ suppressPackageStartupMessages({
 })
 
 # Definir diretórios
-base_dir <- "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET"
+base_dir <- ".."
 input_dir <- file.path(base_dir, "Tabela Rdata")
 output_dir <- file.path(base_dir, "Defasagens")
 

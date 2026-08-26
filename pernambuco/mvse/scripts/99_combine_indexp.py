@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 # Path to the directory containing subdirectories
-path = 'denovo/pernambuco/climate.csv/indexP_tempMed_humMed/'
+path = 'pernambuco/mvse/outputs/indexP_tempMed_humMed/'
 
 # List of subdirectories (geocodes)
 subdirs = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
@@ -29,7 +29,7 @@ combined_df = combined_df[['geocode', 'date', 'indexP']]
 combined_df = combined_df.sort_values(by=['geocode', 'date'])
 
 # Save to the output file
-output_path = 'denovo/pernambuco/climate.csv/pernambuco_indexP_combined.csv'
+output_path = 'pernambuco/mvse/outputs/pernambuco_indexP_combined.csv'
 combined_df.to_csv(output_path, index=False)
 
 # Get number of unique geocodes

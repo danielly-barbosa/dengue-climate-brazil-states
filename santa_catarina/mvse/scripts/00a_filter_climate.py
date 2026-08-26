@@ -2,7 +2,7 @@ import csv
 import os
 
 input_file = r'infodengue_sprint_24-25/climate.csv/climate.csv'
-output_file = r'denovo/santa catarina/climate.csv/sc_climate.csv'
+output_file = r'santa_catarina/mvse/outputs/sc_climate.csv'
 
 os.makedirs(os.path.dirname(output_file), exist_ok=True)
 

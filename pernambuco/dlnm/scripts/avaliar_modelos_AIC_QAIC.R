@@ -1,9 +1,9 @@
 # Adaptado de: DLNM MASS/PE DLNM MASS/relatorios/avaliar_modelos_AIC_QAIC.R
 # Escopo explicito: modelos DLNM com OFFSET populacional (_offset)
 
-base_dir <- "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/PE DLNM MASS + OFFSET"
-input_dir <- file.path(base_dir, "resultados", "summaries")
-out_dir <- file.path(base_dir, "resultados", "summaries")
+base_dir <- ".."
+input_dir <- file.path(base_dir, "results", "summaries")
+out_dir <- file.path(base_dir, "results", "summaries")
 
 files <- list.files(
   input_dir,

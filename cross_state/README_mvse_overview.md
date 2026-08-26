@@ -84,9 +84,9 @@ python scripts\99_combine_indexp.py
 
 ## Origem dos dados
 
-- **CSV unificado nacional**: `d:\CÓDIGOS\ZENODO\denovo\climate_zenodo_todos_os_estados.csv`
-- **Filtragem por estado**: scripts `filter_*_climate.py` em `ZENODO/`
-- **Geocodes**: `d:\CÓDIGOS\geocodes_pernambuco.csv` (PE) + pastas `geocodes/` por estado
+- **CSV unificado nacional**: `cross_state/data/inputs_climate_zenodo_todos_os_estados.csv`
+- **Filtragem por estado**: scripts `00a_filter_climate.py` em `<state>/mvse/scripts/`
+- **Geocodes**: `pernambuco/mvse/inputs/geocodes_pernambuco.csv` (PE) + pastas `geocodes/` por estado
 
 ## Pastas Pernambuco (ciclos paralelos)
 
@@ -95,4 +95,4 @@ python scripts\99_combine_indexp.py
 
 ## Última atualização
 
-2026-08-14 — organização por estado (paralelo ao `ZENODO/denovo/`).
+2026-08-14 — organização por estado (paralelo ao `cross_state/data/inputs_climate_zenodo_todos_os_estados.csv`).

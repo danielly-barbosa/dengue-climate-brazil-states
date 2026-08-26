@@ -2,7 +2,7 @@ import os
 import pandas as pd
 
 # Directory containing the CSV files
-dir_path = r"denovo/rio de janeiro/climate.csv/indexP_tempMed_humMed"
+dir_path = r"rio_de_janeiro/mvse/outputs/indexP_tempMed_humMed"
 
 # List to store all dataframes
 dfs = []
@@ -37,7 +37,7 @@ combined_df = combined_df.sort_values(['geocode', 'date'])
 unique_geocodes = combined_df['geocode'].nunique()
 
 # Save the combined dataframe
-output_path = r"denovo/rio de janeiro/climate.csv/rio de janeiro_indexP_combined.csv"
+output_path = r"rio_de_janeiro/mvse/outputs/rio_de_janeiro_indexP_combined.csv"
 combined_df.to_csv(output_path, index=False)
 
 print(f"Combined CSV file saved to: {output_path}")

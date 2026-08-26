@@ -14,10 +14,10 @@ suppressPackageStartupMessages({
 })
 
 # Caminhos dos arquivos (assumindo wd como a raiz do projeto)
-path_dengue  <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/dengue_pe_2015_2024.csv"
-path_indexp  <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/mvse_pernambuco_consolidado.csv"
-path_climate <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/climate_pe_pos_2016_2_backup.csv"
-path_pop     <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/br_ibge_populacao_municipio_filtrado.csv"
+path_dengue  <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/data/dengue_pe_2015_2024.csv"
+path_indexp  <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/data/mvse_pernambuco_consolidado.csv"
+path_climate <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/data/climate_pe_pos_2016_2_backup.csv"
+path_pop     <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/data/br_ibge_populacao_municipio_filtrado.csv"
 
 cat("1. Carregando bancos de dados...\n")
 dengue_df  <- read.csv(path_dengue)

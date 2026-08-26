@@ -14,8 +14,8 @@ suppressPackageStartupMessages({
 })
 
 # Caminhos dos arquivos
-path_dengue <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/dengue_pe_2015_2024.csv"
-path_indexp <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/mvse_pernambuco_consolidado.csv"
+path_dengue <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/data/dengue_pe_2015_2024.csv"
+path_indexp <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/data/mvse_pernambuco_consolidado.csv"
 
 # 1. Carregar bancos de dados
 cat("Carregando bancos de dados...\n")

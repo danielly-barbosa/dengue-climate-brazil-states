@@ -2,8 +2,8 @@ import csv
 import os
 from collections import defaultdict
 
-input_file = r'denovo/rio grande do sul/climate.csv/rs_climate.csv'
-subfolder = r'denovo/rio grande do sul/climate.csv/geocodes'
+input_file = r'rio_grande_do_sul/mvse/outputs/rs_climate.csv'
+subfolder = r'rio_grande_do_sul/mvse/outputs/geocodes'
 
 os.makedirs(subfolder, exist_ok=True)
 

@@ -120,26 +120,26 @@ states <- list(
   list(
     code = "PE",
     title_state = "Pernambuco",
-    input_file = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/resultados/summaries/resultados_indexP_offset.RData",
-    output_dir = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/resultados/figuras/individuais/indexP"
+    input_file = "../../pernambuco/dlnm/results/summaries/resultados_indexP_offset.RData",
+    output_dir = "../../pernambuco/dlnm/results/figuras/individuais/indexP"
   ),
   list(
     code = "GO",
     title_state = "Goias",
-    input_file = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/GO DLNM MASS + OFFSET/resultados/summaries/resultados_indexP_offset.RData",
-    output_dir = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/GO DLNM MASS + OFFSET/resultados/figuras/individuais/indexP"
+    input_file = "../../goias/dlnm/results/summaries/resultados_indexP_offset.RData",
+    output_dir = "../../goias/dlnm/results/figuras/individuais/indexP"
   ),
   list(
     code = "RJ",
     title_state = "Rio de Janeiro",
-    input_file = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/RIO DE JANEIRO DLNM MASS + OFFSET/resultados/summaries/resultados_indexP_offset.RData",
-    output_dir = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/RIO DE JANEIRO DLNM MASS + OFFSET/resultados/figuras/individuais/indexP"
+    input_file = "../../rio_de_janeiro/dlnm/results/summaries/resultados_indexP_offset.RData",
+    output_dir = "../../rio_de_janeiro/dlnm/results/figuras/individuais/indexP"
   ),
   list(
     code = "RS",
     title_state = "Rio Grande do Sul",
-    input_file = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/RIO GRANDE DO SUL DLNM MASS + OFFSET/resultados/summaries/resultados_indexP_offset.RData",
-    output_dir = "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS + OFFSET/RIO GRANDE DO SUL DLNM MASS + OFFSET/resultados/figuras/individuais/indexP"
+    input_file = "../../rio_grande_do_sul/dlnm/results/summaries/resultados_indexP_offset.RData",
+    output_dir = "../../rio_grande_do_sul/dlnm/results/figuras/individuais/indexP"
   )
 )
 

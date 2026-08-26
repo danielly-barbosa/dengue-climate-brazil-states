@@ -62,7 +62,7 @@ for (f in files) {
 }
 
 if (length(res) == 0) {
-  stop("Nenhum modelo encontrado. Verifique os arquivos .RData em resultados/summaries.")
+  stop("Nenhum modelo encontrado. Verifique os arquivos .RData em results/summaries.")
 }
 
 df <- do.call(rbind, res)

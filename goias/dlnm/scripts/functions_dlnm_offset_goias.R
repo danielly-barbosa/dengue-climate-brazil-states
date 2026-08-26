@@ -24,10 +24,10 @@ default_paths <- function() {
   project_dir <- normalizePath(file.path(script_dir, ".."), winslash = "/", mustWork = TRUE)
   list(
     project_dir = project_dir,
-    data_dir = file.path(project_dir, "dados"),
-    results_dir = file.path(project_dir, "resultados"),
-    figures_root = file.path(project_dir, "resultados", "figuras"),
-    summaries_dir = file.path(project_dir, "resultados", "summaries")
+    data_dir = file.path(project_dir, "data"),
+    results_dir = file.path(project_dir, "results"),
+    figures_root = file.path(project_dir, "results", "figuras"),
+    summaries_dir = file.path(project_dir, "results", "summaries")
   )
 }
 
@@ -140,7 +140,9 @@ standardize_population <- function(pop_raw, target_uf = "GO") {
 }
 
 prepare_base_with_population <- function(data_dir, summaries_dir, start_year = 2017, end_year = 2024) {
-  show_progress("Leitura das bases de dengue, clima, indexP e populacao.")
+  show_progress(sprintf("Leitura das bases para Goias (janela %d-%d).", start_year, end_year))
+  show_progress("Periodo padrao (2017-2024) reflete a janela completa do InfoDengue/Sprint 2024-2025.")
+  show_progress("Para estudos cobrindo anos anteriores, sobrescreva via prepare_base_with_population(..., start_year=YYYY).")
 
   path_dengue <- file.path(data_dir, "dengue_goias_consolidado.csv")
   path_clima <- file.path(data_dir, "climate_go_pos_2016.csv")

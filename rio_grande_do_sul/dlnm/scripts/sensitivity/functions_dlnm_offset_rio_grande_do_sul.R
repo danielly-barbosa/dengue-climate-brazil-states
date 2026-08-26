@@ -73,10 +73,10 @@ default_paths <- function() {
 
   list(
     project_dir = project_dir,
-    data_dir = file.path(project_dir, "dados"),
-    results_dir = file.path(project_dir, "resultados"),
-    figures_root = file.path(project_dir, "resultados", "figuras"),
-    summaries_dir = file.path(project_dir, "resultados", "summaries")
+    data_dir = file.path(project_dir, "data"),
+    results_dir = file.path(project_dir, "results"),
+    figures_root = file.path(project_dir, "results", "figuras"),
+    summaries_dir = file.path(project_dir, "results", "summaries")
   )
 }
 
@@ -211,7 +211,9 @@ standardize_population <- function(pop_raw, target_uf = "RS") {
 }
 
 prepare_base_with_population <- function(data_dir, summaries_dir, start_year = 2017, end_year = 2024) {
-  show_progress("Leitura das bases de dengue, clima, indexP e populacao para Rio Grande do Sul.")
+  show_progress(sprintf("Leitura das bases para Rio Grande do Sul [sensitivity] (janela %d-%d).", start_year, end_year))
+  show_progress("Periodo padrao (2017-2024) reflete a janela completa do InfoDengue/Sprint 2024-2025.")
+  show_progress("Para estudos cobrindo anos anteriores, sobrescreva via prepare_base_with_population(..., start_year=YYYY).")
 
   path_dengue <- file.path(data_dir, "dengue_rio_grande_do_sul_consolidado.csv")
   path_clima <- file.path(data_dir, "climate_rs_2017_2024.csv")
@@ -221,7 +223,7 @@ prepare_base_with_population <- function(data_dir, summaries_dir, start_year = 2
   required_paths <- c(path_dengue, path_clima, path_index, path_pop)
   missing_paths <- required_paths[!file.exists(required_paths)]
   if (length(missing_paths) > 0) {
-    stop(sprintf("Arquivos obrigatorios ausentes em dados/: %s", paste(missing_paths, collapse = ", ")))
+    stop(sprintf("Arquivos obrigatorios ausentes em data/: %s", paste(missing_paths, collapse = ", ")))
   }
 
   dengue <- read.csv(path_dengue, stringsAsFactors = FALSE)

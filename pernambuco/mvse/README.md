@@ -42,9 +42,9 @@ python scripts\99_combine_indexp.py     # gera pernambuco_indexP_combined.csv
 
 ## Origem dos dados
 
-- **CSV único**: `d:\CÓDIGOS\ZENODO\denovo\climate_zenodo_todos_os_estados.csv` (524 MB)
-- **CSV filtrado PE**: `d:\CÓDIGOS\ZENODO\denovo\pernambuco\pernambuco_climate.csv`
-- **Geocodes**: `d:\CÓDIGOS\geocodes_pernambuco.csv`
+- **CSV único**: `cross_state/data/inputs_climate_zenodo_todos_os_estados.csv` (524 MB)
+- **CSV filtrado PE**: `pernambuco/mvse/outputs/pernambuco_climate.csv`
+- **Geocodes**: `pernambuco/mvse/inputs/geocodes_pernambuco.csv`
 
 ## Pacote MVSE
 

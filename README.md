@@ -1,91 +1,169 @@
 # Dengue Climate-Suitability and DLNM Analysis in Brazilian States
 
-This repository contains **data and code** to reproduce all analyses in the doctoral study investigating the effects of **climate variables** and a **mosquito-borne viral suitability index (indexP)** on **dengue transmission** across multiple Brazilian states, using **Distributed Lag Non-linear Models (DLNM)** with population offset and the **MVSE** (Mosquito-borne Viral Suitability Estimator) package.
+**Author:** Calebe Pereira Mendes
+**ORCID:** [0000-0000-0000-0000](https://orcid.org/0000-0000-0000-0000)
+**Affiliation:** Postgraduate Program in Tropical Medicine (Doctoral thesis)
+**License:** MIT (see [LICENSE](LICENSE))
+**Status:** Doctoral research artefact — distributed for academic reproducibility
 
-### Study period
+This repository contains **data and code** to reproduce all analyses in the doctoral study
+investigating the effects of **climate variables** and a **mosquito-borne viral suitability
+index (indexP)** on **dengue transmission** across multiple Brazilian states, using
+**Distributed Lag Non-linear Models (DLNM)** with population offset and the **MVSE**
+(Mosquito-borne Viral Suitability Estimator) package.
 
-2017-01-01 to 2024-12-31 (DLNM risk window). MVSE consumes climate series extending back to 2009; the
-DLNM and cross-state analyses restrict to 2017 onward to align with InfoDengue passive-surveillance
-maturity and the 2023-2024 nationwide outbreak.
+---
 
-## Study Overview
+## Study period
+
+**2017-01-01 to 2024-12-31** (DLNM risk window).
+
+The MVSE climate series extend back to 2009 (or earlier, depending on data availability per
+municipality), but the DLNM and cross-state analyses restrict to 2017 onward to align with
+InfoDengue passive-surveillance maturity and to capture the 2023-2024 nationwide outbreak.
+
+The window is **fully parameterized** through `prepare_base_with_population(data_dir, summaries_dir, start_year, end_year)`
+inside each state's `functions_dlnm_offset_<state>.R`. To extend the window backwards
+(e.g., 2010-2016), call this function with `start_year = 2010` and re-run the pipeline.
+
+---
+
+## Study overview
 
 The study has two main pipelines:
 
-1. **MVSE / indexP estimation** — Estimates the empirical indexP (a transmission suitability index for *Aedes*-borne viruses) from temperature, humidity, and precipitation time series for each municipality, using the R package `MVSE 1.0.1` (Lourenco & Obolski, 2021).
+1. **MVSE / indexP estimation** — Estimates the empirical indexP (a transmission suitability
+   index for *Aedes*-borne viruses) from temperature, humidity, and precipitation time series
+   for each municipality, using the R package `MVSE 1.0.1` (Lourenco & Obolski, 2021).
 
-2. **DLNM with Negative Binomial models** — Fits Distributed Lag Non-linear Models via `MASS::glm.nb` with a population offset (`offset = log(Pop_i / 100000)`) to quantify the non-linear and delayed effects of climate variables (temperature, humidity, precipitation) and indexP on dengue incidence, using panel data by municipality.
+2. **DLNM with Negative Binomial models** — Fits Distributed Lag Non-linear Models via
+   `MASS::glm.nb` with a population offset (`offset = log(Pop_i / 100000)`) to quantify the
+   non-linear and delayed effects of climate variables (temperature, humidity, precipitation)
+   and indexP on dengue incidence, using panel data by municipality.
 
-## Repository Structure
+A complementary **cross-state derivative analysis** investigates the rate of change of daily
+dengue incidence and is provided under `cross_state/derivative/`.
+
+---
+
+## Repository structure
 
 ```
-├── goias/                    # Goiás state (MVSE + DLNM)
-│   ├── mvse/
-│   │   ├── scripts/           # Filter, split, run MVSE, combine indexP
-│   │   ├── inputs/            # State-level climate CSV
-│   │   └── outputs/           # Consolidated indexP CSV
-│   └── dlnm/
-│       ├── scripts/           # Functions, individual & combined models, AIC/QAIC
-│       ├── data/              # Dengue, climate, indexP, population CSVs
-│       └── results/
-│           ├── figures/       # DLNM figures (individual & combined)
-│           └── summaries/      # QC reports, model rankings, diagnostics
-│
-├── pernambuco/               # Pernambuco state (MVSE + DLNM + prediction)
-│   ├── mvse/
-│   ├── dlnm/
-│   └── dlnm/prediction/       # Predictive analysis & validation scripts
-│
-├── rio_de_janeiro/           # Rio de Janeiro state (MVSE + DLNM)
-│   ├── mvse/
-│   └── dlnm/
-│
-├── rio_grande_do_sul/        # Rio Grande do Sul state (MVSE + DLNM + sensitivity)
-│   ├── mvse/
-│   └── dlnm/
-│       └── results/sensitivity/  # Sensitivity analysis (geocode filtering)
-│
-├── parana/                   # Paraná state (MVSE only)
-│   └── mvse/
-│
-├── santa_catarina/           # Santa Catarina state (MVSE only)
-│   └── mvse/
-│
-├── cross_state/              # Cross-state comparative analysis
-│   ├── scripts/               # Combined slice/lag figure generators
-│   ├── data/                   # Lag tables, national climate CSV
-│   ├── figures/                # Combined contour, comparative variable figures
-│   ├── lag_tables/             # Lag-specific RR figures and contour data per variable
-│   └── derivative/             # Complementary temporal-derivative analysis
-│       ├── notebook/           # Original exploratory notebook
-│       ├── scripts/            # export_artifacts.py (reproducible pipeline)
-│       └── outputs/            # tables/ + figures/ with derivative & FPR/TPR results
-│
-├── legacy/                   # Earlier script versions (temp_min & temp_med MVSE cycles)
-│   ├── mvse_temp_med/
-│   ├── mvse_temp_min/
-│   └── mvse_old_scripts/
-│
+github/
+├── LICENSE                  # MIT license
+├── CITATION.cff             # GitHub-native citation metadata
+├── README.md                # This file
 ├── .gitignore
-└── README.md
+├── validate_repo.py         # Self-test: 250+ integrity assertions
+│
+├── goias/                   # Goiás (MVSE + DLNM)
+├── pernambuco/              # Pernambuco (MVSE + DLNM + predictive validation)
+├── rio_de_janeiro/          # Rio de Janeiro (MVSE + DLNM)
+├── rio_grande_do_sul/       # Rio Grande do Sul (MVSE + DLNM + sensitivity)
+├── parana/                  # Paraná (MVSE only)
+├── santa_catarina/          # Santa Catarina (MVSE only)
+│
+├── cross_state/             # Cross-state comparative figures and derivative analysis
+│   ├── scripts/             # Combined slice/lag figure generators
+│   ├── data/                # Lag tables, national CSV reference
+│   ├── figures/             # Combined contour + comparative RR plots
+│   ├── lag_tables/          # Per-variable lag 0–12 RR figures and contour data
+│   └── derivative/          # Temporal-derivative diagnostic (notebook + export_artifacts.py)
+│
+└── legacy/                  # Earlier MVSE iterations (temp_min and temp_med cycles)
+    ├── mvse_temp_med/       # Superseded by current default (temp_med)
+    ├── mvse_temp_min/       # Superseded by current default (temp_med)
+    └── mvse_old_scripts/    # Standalone dev scripts, no longer executed
 ```
 
-## States Covered
+### Per-state layout
 
-| State | IBGE prefix | Municipalities | MVSE | DLNM |
-|---|---|---|---|---|
-| Pernambuco (PE) | 26 | 185 | Yes | Yes |
-| Paraná (PR) | 41 | 399 | Yes | — |
-| Santa Catarina (SC) | 42 | 295 | Yes | — |
-| Rio Grande do Sul (RS) | 43 | 497 | Yes | Yes |
-| Rio de Janeiro (RJ) | 33 | 92 | Yes | Yes |
-| Goiás (GO) | 52 | 246 | Yes | Yes |
+```
+<state>/
+├── mvse/
+│   ├── scripts/             # 00a_filter_climate, 00b_split_geocodes, 01_executar_mvse, 99_combine_indexp
+│   ├── inputs/              # <state>_climate.csv (for PE, GO, PR; others regenerate locally)
+│   └── outputs/             # <state>_indexP_combined.csv (consolidated MVSE result)
+└── dlnm/
+    ├── scripts/
+    │   ├── functions_dlnm_offset_<state>.R     # Core engine (data, cross-basis, fit, plot)
+    │   ├── run_all_models_offset.R             # Run all individual + combined models
+    │   ├── run_individual_<variable>_offset.R  # Individual model wrapper
+    │   ├── run_combined_temp_*_precip_humid_offset.R  # Combined model wrapper
+    │   ├── finalize_reports_offset.R           # Consolidate QC and summary reports
+    │   └── avaliar_modelos_AIC_QAIC_<state>_offset.R  # Model selection
+    ├── data/                # Dengue, climate, indexP, population CSVs
+    └── results/
+        ├── figures/         # DLNM figures (individual & combined: contour, slice, 3D)
+        └── summaries/       # QC reports, model rankings, diagnostics
+```
 
-## MVSE Pipeline
+---
+
+## States covered
+
+| State | IBGE prefix | Municipalities | MVSE | DLNM | Notes |
+|---|---|---|---|---|---|
+| Pernambuco (PE) | 26 | 185 | Yes | Yes | Includes predictive validation (PE 2017-2022 → 2023-2024) |
+| Paraná (PR) | 41 | 399 | Yes | — | MVSE only |
+| Santa Catarina (SC) | 42 | 295 | Yes | — | MVSE only |
+| Rio Grande do Sul (RS) | 43 | 497 | Yes | Yes | Sensitivity analysis on geocode case-filtering |
+| Rio de Janeiro (RJ) | 33 | 92 | Yes | Yes | |
+| Goiás (GO) | 52 | 246 | Yes | Yes | |
+
+---
+
+## Data acquisition
+
+### Climate data (InfoDengue)
+
+- **Source:** [InfoDengue / AlertaDengue](https://github.com/AlertaDengue) — Sprint 2024–2025.
+- **Format:** Single national CSV with weekly climate (temperature, humidity, precipitation) by municipality.
+- **File name expected by the pipeline:** `infodengue_sprint_24-25/climate.csv/climate.csv`
+  (a national weekly CSV; the path is configured in each state's `00a_filter_climate.py`).
+- **Acquisition steps:**
+  1. Clone or download the InfoDengue Sprint 2024-2025 release.
+  2. Place the national climate CSV at `<repo-root>/infodengue_sprint_24-25/climate.csv/` (or
+     edit `00a_filter_climate.py` lines 1-10 to match the source).
+- **What is versioned here:** The pre-filtered per-state CSVs for PE, GO, and PR
+  (`<state>/mvse/inputs/<state>_climate.csv`) are already in the repository. For RJ, RS, and SC,
+  the script will filter from the national CSV on first run.
+
+### Dengue case data (InfoDengue passive surveillance)
+
+- **Source:** InfoDengue passive surveillance system (not redistributed).
+- **File per state:** `<state>/dlnm/data/dengue_<state>_consolidado.csv`
+  (weekly dengue case counts by municipality).
+- **Sensitivity / restriction:** These data come with usage terms from the InfoDengue project.
+  Reviewers requesting access should contact InfoDengue directly; data are not bundled in this
+  public repo.
+
+### Population data (IBGE)
+
+- **Source:** IBGE municipal population estimates.
+- **File (per state):** `<state>/dlnm/data/br_ibge_populacao_municipio_filtrado.csv`
+- **License:** Public domain.
+
+### Restricted data (NOT versioned)
+
+These files are sensitive or restricted and are listed in `.gitignore`. Place them locally only:
+
+| File | Reason |
+|---|---|
+| `Lab_Denv.csv` | Lab PCR results from passive surveillance — restricted by InfoDengue terms |
+| `df_sorotipo.csv` | Dengue serotype data — restricted by surveillance system terms |
+| `infodengue_sprint_24-25/` | Large national CSV — downloaded locally |
+
+See `.gitignore` for the full pattern list.
+
+---
+
+## MVSE pipeline
 
 ### Data format
 
-Each municipality CSV (inside `inputs/geocodes/`, **not included** in the repo — regenerable via scripts) contains:
+Each municipality CSV (per-geocode, **not included** in the repo — regenerable via scripts)
+contains:
 
 | Column | Description |
 |---|---|
@@ -112,10 +190,10 @@ cd <state>/mvse
 python scripts/00a_filter_climate.py     # Filter state from national CSV
 python scripts/00b_split_geocodes.py     # Split into per-municipality CSVs
 Rscript scripts/01_executar_mvse.R       # Run MVSE (estimates indexP)
-python scripts/99_combine_indexp.py     # Consolidate into single CSV
+python scripts/99_combine_indexp.py      # Consolidate into single CSV
 ```
 
-**Output**: `<state>_indexP_combined.csv` with columns `geocode, date, indexP`.
+**Output:** `<state>_indexP_combined.csv` with columns `geocode, date, indexP`.
 
 ### R dependencies (MVSE)
 
@@ -123,46 +201,62 @@ python scripts/99_combine_indexp.py     # Consolidate into single CSV
 - `data.table`
 - `parallel`, `doParallel`, `foreach`
 - `pbapply`
-- `scales`
-- `genlasso`
+- `scales`, `genlasso`
 
-## DLNM Pipeline
+---
+
+## DLNM pipeline
 
 ### Data files (per state)
 
 | File | Description |
 |---|---|
 | `dengue_<state>_consolidado.csv` | Weekly dengue case counts by municipality |
-| `climate_<state>_<years>.csv` | Climate variables (temp, humidity, precip) by municipality |
-| `indexP_<state>_<years>.csv` | MVSE-estimated indexP by municipality |
+| `climate_<state>_<years>.csv` | Climate variables by municipality |
+| `mvse_<state>_consolidado.csv` | MVSE-estimated indexP by municipality |
 | `br_ibge_populacao_municipio_filtrado.csv` | IBGE population estimates |
 
 ### Model specification
 
-- **Model**: Negative Binomial GLM (`MASS::glm.nb`)
-- **Offset**: `log(Pop_i / 100000)` (population standardized rate)
-- **Cross-basis**: `dlnm::crossbasis` with natural cubic splines for exposure and lag dimensions
-- **Panel**: grouped by municipality (`geocode`)
-- **Variables modeled**: `indexP`, `temp_min`, `temp_med`, `temp_max`, `rel_humid_med`, `precip_tot` (individual), and `temp_* + precip + humid` (combined)
+- **Model:** Negative Binomial GLM (`MASS::glm.nb`)
+- **Offset:** `log(Pop_i / 100000)` (population-standardized rate)
+- **Cross-basis:** `dlnm::crossbasis` with natural cubic splines for exposure and lag dimensions
+- **Panel:** grouped by municipality (`geocode`)
+- **Lag window:** 0–12 weeks
+- **Variables modeled:**
+  - **Individual:** `indexP`, `temp_min`, `temp_med`, `temp_max`, `rel_humid_med`, `precip_tot`
+  - **Combined:** `temp_min + precip + humid`, `temp_med + precip + humid`, `temp_max + precip + humid`
 
 ### Scripts per state
 
 | Script | Purpose |
 |---|---|
-| `functions_dlnm_offset_<state>.R` | Core functions: data loading, cross-basis, model fitting, plotting |
+| `functions_dlnm_offset_<state>.R` | Core engine: data loading, cross-basis, fitting, plotting |
 | `run_all_models_offset.R` | Run all individual + combined models |
-| `run_individual_<variable>_offset.R` | Individual model for a single variable |
-| `run_combined_temp_*_precip_humid_offset.R` | Combined model (temp + precip + humidity) |
+| `run_individual_<variable>_offset.R` | Individual model wrapper |
+| `run_combined_temp_*_precip_humid_offset.R` | Combined model wrapper |
 | `finalize_reports_offset.R` | Consolidate QC and summary reports |
-| `avaliar_modelos_AIC_QAIC_<state>_offset.R` | Model selection via AIC/QAIC |
+| `avaliar_modelos_AIC_QAIC_<state>_offset.R` | Model comparison via AIC/QAIC |
 
 ### How to run DLNM for a state
 
 ```bash
 cd <state>/dlnm/scripts
-Rscript run_all_models_offset.R      # Fit all models
-Rscript finalize_reports_offset.R    # Generate reports
-Rscript avaliar_modelos_AIC_QAIC_<state>_offset.R  # Model comparison
+Rscript run_all_models_offset.R                          # Fit all models
+Rscript finalize_reports_offset.R                        # Consolidate QC and summary reports
+Rscript avaliar_modelos_AIC_QAIC_<state>_offset.R        # Model selection
+```
+
+To extend the study window, call the engine functions with custom `start_year`/`end_year`:
+
+```r
+source("functions_dlnm_offset_<state>.R")
+prepared <- prepare_base_with_population(
+  data_dir       = "<state>/dlnm/data",
+  summaries_dir  = "<state>/dlnm/results/summaries",
+  start_year     = 2010,   # override default 2017
+  end_year       = 2024
+)
 ```
 
 ### R dependencies (DLNM)
@@ -174,16 +268,28 @@ Rscript avaliar_modelos_AIC_QAIC_<state>_offset.R  # Model comparison
 - `dplyr`
 - `lubridate`
 
-## Cross-State Analysis
+---
 
-The `cross_state/` folder contains scripts and figures that combine results across all four DLNM states (PE, GO, RJ, RS):
+## Cross-state analysis
 
-- **Combined slice/lag figures**: `indexP_slices_lags_0_12_offset_*.png/.svg`
-- **Combined contour plots**: `Contorno_Combinado_*.png`
-- **Comparative RR by variable**: `RR_Variaveis_Lag_*.png` and `RR_Variaveis_e_IndexP_*.png`
-- **Lag tables**: Per-variable lag-specific RR figures (lag 0–12) and contour data
+The `cross_state/` folder combines results across all four DLNM states (PE, GO, RJ, RS):
 
-## Cross-State Derivative Analysis
+- **Combined slice/lag figures:** `indexP_slices_lags_0_12_offset_*.png/.svg`
+- **Combined contour plots:** `Contorno_Combinado_*.png`
+- **Comparative RR by variable:** `RR_Variaveis_Lag_*.png`, `RR_Variaveis_e_IndexP_*.png`
+- **Lag tables:** Per-variable lag-specific RR figures (lag 0–12) and contour data
+
+Run from the repo root:
+
+```bash
+cd cross_state/scripts
+python combinar_indexP_slices_lags_0_12_offset_estados.py
+Rscript gerar_figuras_slices_lags_0_12_offset_estados.R
+```
+
+---
+
+## Cross-state derivative analysis
 
 The `cross_state/derivative/` module is a **complementary** analysis that investigates the
 **rate of change** of daily dengue incidence per state, alongside the IndexP barrier ratio
@@ -215,23 +321,13 @@ To enable FPR/TPR estimated from real outbreak data, place a `Lab_Denv.csv` at
 `cross_state/data/Lab_Denv.csv` before running. See `cross_state/derivative/scripts/README.md`
 for details.
 
-## Data Sources
+---
 
-- **Climate data**: [InfoDengue Sprint 2024–2025](https://github.com/AlertaDengue/AlertaDengue) — climate CSV (temperature, humidity, precipitation by municipality, weekly)
-- **Dengue data**: InfoDengue passive surveillance system
-- **Population data**: IBGE (`br_ibge_populacao_municipio`)
-- **MVSE package**: Lourenco & Obolski (2021), *PLOS Neglected Tropical Diseases*
-
-## Reproducibility Notes
-
-- Per-municipality geocode CSVs (~1,800+ files total) are **not included** in this repository. They can be regenerated by running `00a_filter_climate.py` and `00b_split_geocodes.py` with the national climate CSV.
-- Per-municipality `estimated_indexP.csv` files (MVSE outputs) are also **not included** — run the MVSE pipeline to regenerate.
-- Only **consolidated** CSVs (`*_combined.csv`, `*_consolidado.csv`) and all **scripts** are version-controlled.
-- MVSE 1.0.1 must be installed locally in R. See [MVSE on GitHub](https://github.com/aldomann/MVSE).
-
-### Quick reproduction (high-level)
+## Quick reproduction (high-level)
 
 ```bash
+# 0. (one-time) Install R + Python dependencies; clone InfoDengue data into the repo
+
 # 1. MVSE for one state (per-municipality climate CSVs needed)
 cd <state>/mvse
 python scripts/00a_filter_climate.py
@@ -242,7 +338,7 @@ python scripts/99_combine_indexp.py
 # 2. DLNM risk models (state-level)
 cd ../dlnm/scripts
 Rscript run_all_models_offset.R
-Rscript finalize_reports_offset.R        # consolidate QC and summary reports
+Rscript finalize_reports_offset.R
 Rscript avaliar_modelos_AIC_QAIC_<state>_offset.R
 
 # 3. Cross-state combined figures
@@ -254,7 +350,39 @@ Rscript gerar_figuras_slices_lags_0_12_offset_estados.R
 python ../derivative/scripts/export_artifacts.py
 ```
 
-## Python Dependencies
+---
+
+## Reproducibility notes
+
+- Per-municipality geocode CSVs (~1,800+ files total) are **not included** in this repository.
+  They can be regenerated by running `00a_filter_climate.py` and `00b_split_geocodes.py` with
+  the national climate CSV.
+- Per-municipality `estimated_indexP.csv` files (MVSE outputs) are also **not included** —
+  run the MVSE pipeline to regenerate.
+- Only **consolidated** CSVs (`*_combined.csv`, `*_consolidado.csv`) and all **scripts** are
+  version-controlled.
+- `MVSE 1.0.1` must be installed locally in R. See [MVSE on GitHub](https://github.com/aldomann/MVSE).
+- Self-test: `python validate_repo.py` runs ~250 integrity assertions across the repo (folder
+  structure, file presence, R/Python syntax, .gitignore effectiveness).
+
+### About the `legacy/` folder
+
+The `legacy/` folder contains **earlier iterations** of the MVSE pipeline:
+
+- `legacy/mvse_temp_med/` — original MVSE experiments using `temp_med` as the canonical temperature
+  variable. These scripts are functionally equivalent to the current `mvse/scripts/01_executar_mvse.R`
+  and are kept for reference.
+- `legacy/mvse_temp_min/` — earlier experiments using `temp_min` as the canonical temperature
+  variable (an alternate sensitivity setting).
+- `legacy/mvse_old_scripts/` — standalone development scripts from before the current MVSE
+  pipeline was finalized. Not executed by any current pipeline.
+
+These scripts are **not** required to reproduce the results. They are versioned for historical
+traceability of the methodology iterations.
+
+---
+
+## Python dependencies
 
 - `pandas`, `numpy`, `matplotlib`, `Pillow`, `svgutils`, `scikit-learn`, `scipy`
 - `jupyter` (only for running `temporal_derivative.ipynb` interactively)
@@ -265,14 +393,24 @@ Install with:
 pip install pandas numpy matplotlib Pillow svgutils scikit-learn scipy jupyter
 ```
 
+---
+
 ## How to cite
 
 If you use this code or data, please cite:
 
-- Lourenço, J. & Obolski, U. (2021). MVSE — Mosquito-borne Viral Suitability Estimator. *PLOS Neglected Tropical Diseases*.
-- InfoDengue / AlertaDengue (climate and dengue passive surveillance data).
-- IBGE (Brazilian municipal population estimates).
+- **Mendes, C. P.** (2026). Dengue Climate-Suitability and DLNM Analysis in Brazilian States
+  (Doctoral thesis, Postgraduate Program in Tropical Medicine).
+- **Lourenço, J. & Obolski, U.** (2021). MVSE — Mosquito-borne Viral Suitability Estimator.
+  *PLOS Neglected Tropical Diseases*.
+- **InfoDengue / AlertaDengue** — climate and dengue passive surveillance data.
+- **IBGE** — Brazilian municipal population estimates.
+
+A `CITATION.cff` file at the repo root provides GitHub-native citation metadata.
+
+---
 
 ## License
 
-This repository is intended for academic reproducibility. Data usage is subject to the terms of the original data sources (InfoDengue, IBGE).
+This repository is released under the **MIT License** (see [LICENSE](LICENSE)). Underlying data
+remains subject to the terms of the original data sources (InfoDengue, IBGE).

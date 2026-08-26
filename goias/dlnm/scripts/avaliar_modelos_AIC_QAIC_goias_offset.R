@@ -1,6 +1,6 @@
-base_dir <- "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/DLNM MASS/GO DLNM MASS + OFFSET"
-input_dir <- file.path(base_dir, "resultados", "summaries")
-out_dir <- file.path(base_dir, "resultados", "summaries")
+base_dir <- ".."
+input_dir <- file.path(base_dir, "results", "summaries")
+out_dir <- file.path(base_dir, "results", "summaries")
 
 files <- list.files(
   input_dir,

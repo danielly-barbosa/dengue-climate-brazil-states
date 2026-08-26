@@ -2,9 +2,9 @@
 # DLNM MASS/PE DLNM MASS/relatorios/avaliar_modelos_AIC_QAIC.R
 # Adaptacao explicita para modelos com OFFSET (sufixo _offset).
 
-base_dir <- "c:/Users/DaniLinda/Desktop/Doutorado PE/analises_individuais/RIO DE JANEIRO DLNM MASS + OFFSET"
-input_dir <- file.path(base_dir, "resultados", "summaries")
-out_dir <- file.path(base_dir, "resultados", "summaries")
+base_dir <- ".."
+input_dir <- file.path(base_dir, "results", "summaries")
+out_dir <- file.path(base_dir, "results", "summaries")
 
 files <- list.files(
   input_dir,

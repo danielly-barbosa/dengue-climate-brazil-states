@@ -14,11 +14,11 @@ suppressPackageStartupMessages({
 })
 
 # Caminhos
-path_dengue  <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/dengue_pe_2015_2024.csv"
-path_indexp  <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/mvse_pernambuco_consolidado.csv"
-path_climate <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/climate_pe_pos_2016_2_backup.csv"
-path_pop     <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/dados/br_ibge_populacao_municipio_filtrado.csv"
-dir_out      <- "DLNM MASS + OFFSET/PE DLNM MASS + OFFSET/PREDIÇÃO/DLNM_VALIDACAO/"
+path_dengue  <- "../../data/dengue_pe_2015_2024.csv"
+path_indexp  <- "../../data/mvse_pernambuco_consolidado.csv"
+path_climate <- "../../data/climate_pe_pos_2016_2_backup.csv"
+path_pop     <- "../../data/br_ibge_populacao_municipio_filtrado.csv"
+dir_out      <- "../../prediction/validation/"
 
 # 1. FUNÇÕES REAPROVEITADAS/ADAPTADAS
 normalize_geocode <- function(x) {

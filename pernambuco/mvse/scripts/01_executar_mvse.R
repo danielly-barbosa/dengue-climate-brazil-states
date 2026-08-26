@@ -48,10 +48,10 @@ clusterEvalQ(cl, {
 
 # Diretórios - ADAPTADO PARA DADOS TEMP_MED + REL_HUMID_MED
 # setwd("d:/CÓDIGOS")
-dir.create("denovo/pernambuco/climate.csv/indexP_tempMed_humMed", showWarnings = FALSE)
+dir.create("pernambuco/mvse/outputs/indexP_tempMed_humMed", showWarnings = FALSE)
 
 # DIRETÓRIO CORRETO - NOSSOS DADOS COM TEMP_MED + REL_HUMID_MED
-dir_clima <- "denovo/pernambuco/climate.csv/geocodes"
+dir_clima <- "pernambuco/mvse/outputs/geocodes"
 arquivos_clima <- list.files(dir_clima, pattern = "\\.csv$", full.names = TRUE)
 arquivos_clima <- sort(arquivos_clima)
 
@@ -74,7 +74,7 @@ processar_cidade_extremo <- function(arquivo_clima) {
   tryCatch({
     # Extrair nome da cidade do arquivo (sem extensão .csv)
     nome_cidade <- gsub("\\.csv$", "", basename(arquivo_clima))
-    dir_cidade <- file.path("denovo/pernambuco/climate.csv/indexP_tempMed_humMed", nome_cidade)
+    dir_cidade <- file.path("pernambuco/mvse/outputs/indexP_tempMed_humMed", nome_cidade)
     dir.create(dir_cidade, showWarnings = FALSE, recursive = TRUE)
     
     cat("Processando cidade (TEMP_MED + REL_HUMID_MED):", nome_cidade, "\n")
@@ -157,7 +157,7 @@ config_inicial <- list(
   timestamp = Sys.time(),
   total_cidades = length(arquivos_clima),
   diretorio_dados = dir_clima,
-  diretorio_resultados = "denovo/pernambuco/climate.csv/indexP_tempMed_humMed",
+  diretorio_resultados = "pernambuco/mvse/outputs/indexP_tempMed_humMed",
   parametros = list(
     nMCMC = 25000,
     nSample = 120,
@@ -205,7 +205,7 @@ cat("Tempo total:", round(tempo_total, 2), "minutos\n")
 cat("Tempo médio por cidade:", round(tempo_total/length(arquivos_clima), 2), "minutos\n")
 
 # Verificar arquivos de saída
-arquivos_saida <- list.files("denovo/pernambuco/climate.csv/indexP_tempMed_humMed", pattern = "\\.estimated_indexP\\.csv$", recursive = TRUE)
+arquivos_saida <- list.files("pernambuco/mvse/outputs/indexP_tempMed_humMed", pattern = "\\.estimated_indexP\\.csv$", recursive = TRUE)
 cat("Arquivos de resultado encontrados:", length(arquivos_saida), "\n")
 
 if(length(arquivos_saida) > 0) {
@@ -233,6 +233,6 @@ relatorio_final <- list(
 saveRDS(relatorio_final, "relatorio_mvse_pernambuco.rds")
 
 cat("\nRelatório salvo em: relatorio_mvse_pernambuco.rds\n")
-cat("Resultados salvos em: denovo/pernambuco/climate.csv/indexP_tempMed_humMed/\n")
+cat("Resultados salvos em: pernambuco/mvse/outputs/indexP_tempMed_humMed/\n")
 cat("\nProcessamento MVSE com TEMP_MED + REL_HUMID_MED finalizado!\n")
 cat(paste0(rep("=", 80), collapse=""), "\n")

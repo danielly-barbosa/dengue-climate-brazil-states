@@ -2,6 +2,12 @@
 
 This repository contains **data and code** to reproduce all analyses in the doctoral study investigating the effects of **climate variables** and a **mosquito-borne viral suitability index (indexP)** on **dengue transmission** across multiple Brazilian states, using **Distributed Lag Non-linear Models (DLNM)** with population offset and the **MVSE** (Mosquito-borne Viral Suitability Estimator) package.
 
+### Study period
+
+2017-01-01 to 2024-12-31 (DLNM risk window). MVSE consumes climate series extending back to 2009; the
+DLNM and cross-state analyses restrict to 2017 onward to align with InfoDengue passive-surveillance
+maturity and the 2023-2024 nationwide outbreak.
+
 ## Study Overview
 
 The study has two main pipelines:
@@ -49,7 +55,11 @@ The study has two main pipelines:
 │   ├── scripts/               # Combined slice/lag figure generators
 │   ├── data/                   # Lag tables, national climate CSV
 │   ├── figures/                # Combined contour, comparative variable figures
-│   └── lag_tables/             # Lag-specific RR figures and contour data per variable
+│   ├── lag_tables/             # Lag-specific RR figures and contour data per variable
+│   └── derivative/             # Complementary temporal-derivative analysis
+│       ├── notebook/           # Original exploratory notebook
+│       ├── scripts/            # export_artifacts.py (reproducible pipeline)
+│       └── outputs/            # tables/ + figures/ with derivative & FPR/TPR results
 │
 ├── legacy/                   # Earlier script versions (temp_min & temp_med MVSE cycles)
 │   ├── mvse_temp_med/
@@ -173,6 +183,38 @@ The `cross_state/` folder contains scripts and figures that combine results acro
 - **Comparative RR by variable**: `RR_Variaveis_Lag_*.png` and `RR_Variaveis_e_IndexP_*.png`
 - **Lag tables**: Per-variable lag-specific RR figures (lag 0–12) and contour data
 
+## Cross-State Derivative Analysis
+
+The `cross_state/derivative/` module is a **complementary** analysis that investigates the
+**rate of change** of daily dengue incidence per state, alongside the IndexP barrier ratio
+`B_p = indexP(t − τ) / (incidence + 1)`. It does **not** feed back into the DLNM risk models;
+it provides diagnostic/visual validation of outbreak timing and detection thresholds.
+
+It reproduces the logic of the original exploratory notebook
+(`cross_state/derivative/notebook/temporal_derivative.ipynb`) as a deterministic Python pipeline
+(`cross_state/derivative/scripts/export_artifacts.py`).
+
+### Outputs produced
+
+- `outputs/tables/derivative_incidence_all_states.csv` — first (`_dt`) and second (`_st`) derivative of daily incidence
+- `outputs/tables/derivative_season_<STATE>_<SEASON>.csv` — `_dt`, `_st`, expanding mean (`_mu_t`), expanding standard deviation (`_sigma_t`)
+- `outputs/tables/derivative_alerts_<STATE>_<SEASON>.csv` — boolean alert matrix for k ∈ [0, 3] (step 0.125)
+- `outputs/tables/fpr_tpr_table_<STATE>_<SEASON>.csv` — alert precision/recall against outbreak ground-truth
+- `outputs/figures/first_derivative_incidence.png` — 4-state stacked panel
+- `outputs/figures/processing_panel_4states.png` — B_p + incidence overlay
+- `outputs/figures/fpr_tpr_curve_<STATE>.png` — k-sweep diagnostic
+
+### How to run
+
+```bash
+python cross_state/derivative/scripts/export_artifacts.py
+```
+
+Inputs are read from the consolidated state CSVs in the main repo (no preprocessing required).
+To enable FPR/TPR estimated from real outbreak data, place a `Lab_Denv.csv` at
+`cross_state/data/Lab_Denv.csv` before running. See `cross_state/derivative/scripts/README.md`
+for details.
+
 ## Data Sources
 
 - **Climate data**: [InfoDengue Sprint 2024–2025](https://github.com/AlertaDengue/AlertaDengue) — climate CSV (temperature, humidity, precipitation by municipality, weekly)
@@ -186,6 +228,50 @@ The `cross_state/` folder contains scripts and figures that combine results acro
 - Per-municipality `estimated_indexP.csv` files (MVSE outputs) are also **not included** — run the MVSE pipeline to regenerate.
 - Only **consolidated** CSVs (`*_combined.csv`, `*_consolidado.csv`) and all **scripts** are version-controlled.
 - MVSE 1.0.1 must be installed locally in R. See [MVSE on GitHub](https://github.com/aldomann/MVSE).
+
+### Quick reproduction (high-level)
+
+```bash
+# 1. MVSE for one state (per-municipality climate CSVs needed)
+cd <state>/mvse
+python scripts/00a_filter_climate.py
+python scripts/00b_split_geocodes.py
+Rscript scripts/01_executar_mvse.R
+python scripts/99_combine_indexp.py
+
+# 2. DLNM risk models (state-level)
+cd ../dlnm/scripts
+Rscript run_all_models_offset.R
+Rscript finalizar_reports_offset.R        # if present
+Rscript avaliar_modelos_AIC_QAIC_<state>_offset.R
+
+# 3. Cross-state combined figures
+cd ../../../cross_state/scripts
+python combinar_indexP_slices_lags_0_12_offset_estados.py
+Rscript gerar_figuras_slices_lags_0_12_offset_estados.R
+
+# 4. Temporal-derivative diagnostic
+python ../derivative/scripts/export_artifacts.py
+```
+
+## Python Dependencies
+
+- `pandas`, `numpy`, `matplotlib`, `Pillow`, `svgutils`, `scikit-learn`, `scipy`
+- `jupyter` (only for running `temporal_derivative.ipynb` interactively)
+
+Install with:
+
+```bash
+pip install pandas numpy matplotlib Pillow svgutils scikit-learn scipy jupyter
+```
+
+## How to cite
+
+If you use this code or data, please cite:
+
+- Lourenço, J. & Obolski, U. (2021). MVSE — Mosquito-borne Viral Suitability Estimator. *PLOS Neglected Tropical Diseases*.
+- InfoDengue / AlertaDengue (climate and dengue passive surveillance data).
+- IBGE (Brazilian municipal population estimates).
 
 ## License
 

@@ -11,7 +11,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).parent
 
-# --- Test framework ---
+
 passed = 0
 failed = 0
 errors = []
@@ -32,7 +32,7 @@ def section(title):
     print(f"  {title}")
     print(f"{'='*60}")
 
-# --- Tests ---
+
 
 def test_root_files():
     section("1. Root Files")
@@ -40,7 +40,7 @@ def test_root_files():
     check(".gitignore exists", (REPO_ROOT / ".gitignore").exists())
     check("validate_repo.py exists", (REPO_ROOT / "validate_repo.py").exists())
 
-    # README should have key sections
+
     readme = (REPO_ROOT / "README.md").read_text(encoding="utf-8")
     check("README has title", "# Dengue" in readme)
     check("README has structure tree", "Repository Structure" in readme or "├──" in readme)
@@ -49,7 +49,7 @@ def test_root_files():
     check("README has data sources", "Data Sources" in readme or "InfoDengue" in readme)
     check("README has reproducibility notes", "Reproducibility" in readme or "reproducibility" in readme)
 
-    # .gitignore should exclude key patterns
+
     gitignore = (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
     check(".gitignore excludes geocodes", "geocodes" in gitignore)
     check(".gitignore excludes indexP_tempMed_humMed", "indexP_tempMed_humMed" in gitignore)
@@ -85,10 +85,10 @@ def test_mvse_scripts():
 
     states_with_mvse = ["goias", "pernambuco", "rio_de_janeiro", "rio_grande_do_sul", "parana", "santa_catarina"]
 
-    # Standard scripts that most states should have
+
     standard_scripts = ["01_executar_mvse.R", "99_combine_indexp.py"]
 
-    # Scripts that states with filter/split should have
+
     full_scripts = ["00a_filter_climate.py", "00b_split_geocodes.py", "01_executar_mvse.R", "99_combine_indexp.py"]
 
     for state in states_with_mvse:
@@ -104,7 +104,7 @@ def test_mvse_scripts():
         for script in standard_scripts:
             check(f"{state}/mvse/scripts/{script} exists", (scripts_dir / script).exists())
 
-        # States with full pipeline (filter + split)
+
         if state != "rio_de_janeiro":
             for script in full_scripts:
                 check(f"{state}/mvse/scripts/{script} exists", (scripts_dir / script).exists())
@@ -113,7 +113,7 @@ def test_mvse_scripts():
 def test_mvse_inputs_outputs():
     section("4. MVSE Inputs & Outputs")
 
-    # States with known consolidated outputs
+
     mvse_outputs = {
         "goias": "goias_indexP_combined.csv",
         "pernambuco": "pernambuco_indexP_combined.csv",
@@ -133,7 +133,7 @@ def test_mvse_inputs_outputs():
         check(f"{state}/mvse/inputs/{filename} exists",
               (REPO_ROOT / state / "mvse" / "inputs" / filename).exists())
 
-    # Pernambuco should have geocodes master list
+
     check("pernambuco/mvse/inputs/geocodes_pernambuco.csv exists",
           (REPO_ROOT / "pernambuco" / "mvse" / "inputs" / "geocodes_pernambuco.csv").exists())
 
@@ -143,7 +143,7 @@ def test_dlnm_scripts():
 
     states_with_dlnm = ["goias", "pernambuco", "rio_de_janeiro", "rio_grande_do_sul"]
 
-    # Core scripts every DLNM state should have
+
     core_scripts = [
         "functions_dlnm_offset",
         "run_all_models_offset.R",
@@ -169,18 +169,18 @@ def test_dlnm_scripts():
         check(f"{state}/dlnm/scripts/ has .R files", len(all_scripts) >= 10,
               f"Found {len(all_scripts)} .R files")
 
-        # Check for functions script (name varies by state)
+
         functions_scripts = list(scripts_dir.glob("functions_dlnm_offset_*.R"))
         check(f"{state}/dlnm/scripts/ has functions_dlnm_offset_*.R",
               len(functions_scripts) > 0, "No functions_dlnm_offset_*.R found")
 
         for script in core_scripts:
             if script == "functions_dlnm_offset":
-                continue  # Already checked above with glob
+                continue
             check(f"{state}/dlnm/scripts/{script} exists",
                   (scripts_dir / script).exists())
 
-        # Check for AIC/QAIC evaluation script
+
         aic_scripts = list(scripts_dir.glob("avaliar_modelos_AIC_QAIC*.R"))
         check(f"{state}/dlnm/scripts/ has avaliar_modelos_AIC_QAIC*.R",
               len(aic_scripts) > 0)
@@ -201,19 +201,19 @@ def test_dlnm_data():
         check(f"{state}/dlnm/data/ has files", len(all_files) >= 3,
               f"Found {len(all_files)} files")
 
-        # Check for dengue data
+
         dengue_files = list(data_dir.glob("dengue_*.csv"))
         check(f"{state}/dlnm/data/ has dengue_*.csv", len(dengue_files) > 0)
 
-        # Check for climate data
+
         climate_files = list(data_dir.glob("climate_*.csv"))
         check(f"{state}/dlnm/data/ has climate_*.csv", len(climate_files) > 0)
 
-        # Check for population data
+
         pop_files = list(data_dir.glob("br_ibge_populacao*.csv"))
         check(f"{state}/dlnm/data/ has br_ibge_populacao*.csv", len(pop_files) > 0)
 
-        # Check for indexP data
+
         indexp_files = list(data_dir.glob("indexP_*.csv")) + list(data_dir.glob("mvse_*consolidado*.csv"))
         check(f"{state}/dlnm/data/ has indexP/mvse data", len(indexp_files) > 0,
               "No indexP_*.csv or mvse_*consolidado*.csv found")
@@ -230,7 +230,7 @@ def test_dlnm_results():
             check(f"{state}/dlnm/results/ exists", False)
             continue
 
-        # Check figures
+
         figures_dir = results_dir / "figures"
         check(f"{state}/dlnm/results/figures/ exists", figures_dir.exists())
 
@@ -250,7 +250,7 @@ def test_dlnm_results():
                 check(f"{state}/ figures/combinados/ has SVG files", len(svg_files) > 0,
                       f"Found {len(svg_files)} SVG files")
 
-        # Check summaries
+
         summaries_dir = results_dir / "summaries"
         check(f"{state}/dlnm/results/summaries/ exists", summaries_dir.exists())
 
@@ -269,7 +269,7 @@ def test_rs_sensitivity():
 
     rs_root = REPO_ROOT / "rio_grande_do_sul" / "dlnm"
 
-    # Sensitivity scripts
+
     sens_scripts = rs_root / "scripts" / "sensitivity"
     check("RS sensitivity scripts folder exists", sens_scripts.exists())
     if sens_scripts.exists():
@@ -278,11 +278,11 @@ def test_rs_sensitivity():
         check("RS sensitivity has run_sensitivity_audit_no_plots.R",
               (sens_scripts / "run_sensitivity_audit_no_plots.R").exists())
 
-    # Sensitivity results
+
     sens_results = rs_root / "results" / "sensitivity"
     check("RS sensitivity results folder exists", sens_results.exists())
 
-    # Review data cleaning
+
     review = rs_root / "results" / "review_data_cleaning"
     check("RS review_data_cleaning folder exists", review.exists())
 
@@ -298,7 +298,7 @@ def test_pe_prediction():
         check("PE prediction has .R scripts", len(r_files) > 0,
               f"Found {len(r_files)} .R files")
 
-        # Validation subfolder
+
         validation = pe_pred / "validation"
         check("PE prediction/validation/ exists", validation.exists())
         if validation.exists():
@@ -357,6 +357,32 @@ def test_cross_state():
                       len(lag_pngs) >= 10,
                       f"Found {len(lag_pngs)} PNGs (expected >=10)")
 
+    # Derivative module
+    cs_deriv = cs / "derivative"
+    check("cross_state/derivative/ exists", cs_deriv.exists())
+    if cs_deriv.exists():
+        nb_dir = cs_deriv / "notebook"
+        check("cross_state/derivative/notebook/ exists", nb_dir.exists())
+        if nb_dir.exists():
+            check("cross_state/derivative/notebook/ has temporal_derivative.ipynb",
+                  (nb_dir / "temporal_derivative.ipynb").exists())
+
+        scripts_dir = cs_deriv / "scripts"
+        check("cross_state/derivative/scripts/ exists", scripts_dir.exists())
+        if scripts_dir.exists():
+            check("cross_state/derivative/scripts/ has export_artifacts.py",
+                  (scripts_dir / "export_artifacts.py").exists())
+            check("cross_state/derivative/scripts/ has README.md",
+                  (scripts_dir / "README.md").exists())
+
+        outputs_dir = cs_deriv / "outputs"
+        check("cross_state/derivative/outputs/ exists", outputs_dir.exists())
+        if outputs_dir.exists():
+            check("cross_state/derivative/outputs/figures/ exists",
+                  (outputs_dir / "figures").exists())
+            check("cross_state/derivative/outputs/tables/ exists",
+                  (outputs_dir / "tables").exists())
+
 
 def test_legacy():
     section("11. Legacy Folder")
@@ -364,21 +390,21 @@ def test_legacy():
     legacy = REPO_ROOT / "legacy"
     check("legacy/ exists", legacy.exists())
 
-    # mvse_temp_med
+
     temp_med = legacy / "mvse_temp_med"
     check("legacy/mvse_temp_med/ exists", temp_med.exists())
     if temp_med.exists():
         check("legacy/mvse_temp_med/scripts/ has files",
               len(list((temp_med / "scripts").glob("*"))) > 0)
 
-    # mvse_temp_min
+
     temp_min = legacy / "mvse_temp_min"
     check("legacy/mvse_temp_min/ exists", temp_min.exists())
     if temp_min.exists():
         check("legacy/mvse_temp_min/scripts/ has files",
               len(list((temp_min / "scripts").glob("*"))) > 0)
 
-    # mvse_old_scripts
+
     old = legacy / "mvse_old_scripts"
     check("legacy/mvse_old_scripts/ exists", old.exists())
     if old.exists():
@@ -402,7 +428,7 @@ def test_no_spaces_in_paths():
     section("13. No Spaces in Folder Names")
 
     for root, dirs, files in os.walk(REPO_ROOT):
-        # Skip .git
+
         if ".git" in root:
             continue
         for d in dirs:
@@ -467,7 +493,7 @@ def test_gitignore_effectiveness():
 
     gitignore = (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
 
-    # Test that key patterns are present
+
     patterns = {
         "geocodes/*.csv": "Per-geocode CSVs",
         "indexP_tempMed_humMed/": "MVSE per-municipality outputs",
@@ -484,14 +510,14 @@ def test_gitignore_effectiveness():
 def test_file_encoding():
     section("17. File Encoding (UTF-8)")
 
-    # Check README is valid UTF-8
+
     try:
         (REPO_ROOT / "README.md").read_text(encoding="utf-8")
         check("README.md is valid UTF-8", True)
     except Exception as e:
         check("README.md is valid UTF-8", False, str(e))
 
-    # Check .gitignore is valid UTF-8
+
     try:
         (REPO_ROOT / ".gitignore").read_text(encoding="utf-8")
         check(".gitignore is valid UTF-8", True)
@@ -505,7 +531,7 @@ def test_script_count():
     r_count = len(list(REPO_ROOT.rglob("*.R")))
     py_count = len(list(REPO_ROOT.rglob("*.py")))
 
-    # Exclude this validation script
+
     py_count -= 1
 
     check(f"R scripts: {r_count} (expected >=60)", r_count >= 60,
@@ -517,7 +543,7 @@ def test_script_count():
     print(f"  Total Python scripts: {py_count}")
 
 
-# --- Main ---
+
 
 if __name__ == "__main__":
     print("\n" + "=" * 60)
@@ -554,7 +580,7 @@ if __name__ == "__main__":
             errors.append(f"  [ERROR] {test.__name__} -- {e}")
             print(f"  [ERROR] {test.__name__} -- {e}")
 
-    # Summary
+
     total = passed + failed
     print(f"\n{'='*60}")
     print(f"  SUMMARY: {passed}/{total} passed, {failed} failed")

@@ -1,0 +1,5 @@
+"state","geocodes_total","geocodes_lt10","pct_geocodes_lt10","total_cases","cases_in_lt10","pct_cases_in_lt10","mean_cases_per_geocode","median_cases_per_geocode"
+"PE",184,0,0,216930,0,0,1178.96739130435,246.5
+"GO",244,0,0,1027239,0,0,4209.99590163934,819.5
+"RJ",92,0,0,438519,0,0,4766.51086956522,1186
+"RS",201,52,25.8706467661692,116108,194,0.167085816653461,577.651741293532,55

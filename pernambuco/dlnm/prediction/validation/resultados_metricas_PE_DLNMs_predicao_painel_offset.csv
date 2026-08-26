@@ -1,0 +1,6 @@
+"estado","modelo","tipo","exposicao","familia_usada","lag_max","var_df","lag_df","offset_usado","MAE_estado","RMSE_estado"
+"PE","Base","Base","Nenhuma","poisson",NA,NA,NA,"log(Pop_i/100k)",357.746352401042,583.408093784326
+"PE","DLNM Índice P","Sintético","indexP","poisson",12,3,3,"log(Pop_i/100k)",449.823462078894,740.06993319606
+"PE","DLNM Temp Média","Clima","temp_med","poisson",12,3,3,"log(Pop_i/100k)",455.714611261319,755.085110651633
+"PE","DLNM Precipitação","Clima","precip_tot","poisson",12,3,3,"log(Pop_i/100k)",469.725640748811,777.309060206461
+"PE","DLNM Umidade","Clima","rel_humid_med","poisson",12,3,3,"log(Pop_i/100k)",407.973501049439,677.337037371691

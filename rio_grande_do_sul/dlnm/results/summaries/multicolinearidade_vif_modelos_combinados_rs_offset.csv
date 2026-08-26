@@ -1,0 +1,10 @@
+"model_id","variable","r2","vif"
+"temp_max_precip_humid","temp_max",0.3149500649042,1.45974760199073
+"temp_max_precip_humid","precip_tot",0.248175178038762,1.33009707951829
+"temp_max_precip_humid","rel_humid_med",0.456831803533137,1.84105035328777
+"temp_med_precip_humid","temp_med",0.175805269711123,1.21330550081229
+"temp_med_precip_humid","precip_tot",0.257326738567697,1.34648714573542
+"temp_med_precip_humid","rel_humid_med",0.371116070845071,1.59011854754146
+"temp_min_precip_humid","temp_min",0.0559778777831553,1.05929720974303
+"temp_min_precip_humid","precip_tot",0.261556614782798,1.35419995631197
+"temp_min_precip_humid","rel_humid_med",0.283144012666593,1.39498032752693

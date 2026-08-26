@@ -1,0 +1,37 @@
+# --- OS files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- R ---
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj
+*.RData
+
+# --- Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# --- Logs ---
+*.log
+*.out
+
+# --- Per-geocode CSVs (regenerable via scripts) ---
+**/geocodes/*.csv
+**/indexP_tempMed_humMed/
+**/dados_por_cidade/
+
+# --- Large intermediate data ---
+*_backup*.csv
+
+# --- IDE ---
+.idea/
+.vscode/
+*.swp
+*.swo

@@ -1,0 +1,219 @@
+Model ID: temp_med_precip_humid
+Rows used (n_final): 37352
+Unique geocodes: 92
+Unique grid (temp_med): 19756
+Unique grid (precip_tot): 15050
+Unique grid (rel_humid_med): 22430
+Model formula (includes population offset):
+casos ~ cb_temp + cb_precip + cb_humid + ns(time, df = df_time) +     factor(mes) + factor(geocode) + offset(offset)
+
+
+Call:
+MASS::glm.nb(formula = formula_model, data = dados, control = glm.control(maxit = 50), 
+    init.theta = 0.5223769736, link = log)
+
+Coefficients:
+                           Estimate Std. Error z value Pr(>|z|)    
+(Intercept)               5.631e+01  9.992e+01   0.564 0.573043    
+cb_tempv1.l1             -3.708e-01  1.197e-01  -3.097 0.001954 ** 
+cb_tempv1.l2              8.748e-01  8.125e-02  10.767  < 2e-16 ***
+cb_tempv1.l3              1.910e-01  9.095e-02   2.100 0.035703 *  
+cb_tempv2.l1             -1.118e+00  3.444e-01  -3.246 0.001169 ** 
+cb_tempv2.l2              1.742e+00  2.129e-01   8.182 2.79e-16 ***
+cb_tempv2.l3              4.133e-01  2.384e-01   1.733 0.083069 .  
+cb_tempv3.l1             -1.975e-01  1.619e-01  -1.220 0.222650    
+cb_tempv3.l2              6.558e-01  1.222e-01   5.368 7.95e-08 ***
+cb_tempv3.l3              2.430e-01  1.275e-01   1.907 0.056569 .  
+cb_precipv1.l1            3.629e-01  1.139e-01   3.186 0.001440 ** 
+cb_precipv1.l2            3.257e-01  8.595e-02   3.790 0.000151 ***
+cb_precipv1.l3            4.201e-01  9.486e-02   4.428 9.49e-06 ***
+cb_precipv2.l1            3.131e-01  1.808e-01   1.732 0.083233 .  
+cb_precipv2.l2           -4.641e-01  1.328e-01  -3.494 0.000475 ***
+cb_precipv2.l3            5.528e-02  1.522e-01   0.363 0.716551    
+cb_precipv3.l1            6.233e-02  3.578e-01   0.174 0.861699    
+cb_precipv3.l2           -1.104e+00  2.638e-01  -4.184 2.87e-05 ***
+cb_precipv3.l3           -3.113e-01  2.997e-01  -1.039 0.298963    
+cb_humidv1.l1             1.192e-01  8.045e-02   1.481 0.138582    
+cb_humidv1.l2             1.940e-01  5.599e-02   3.465 0.000530 ***
+cb_humidv1.l3            -5.126e-02  6.556e-02  -0.782 0.434317    
+cb_humidv2.l1             4.515e-01  2.794e-01   1.616 0.106145    
+cb_humidv2.l2             2.373e-01  1.925e-01   1.233 0.217698    
+cb_humidv2.l3            -3.097e-01  2.249e-01  -1.377 0.168439    
+cb_humidv3.l1             3.075e-01  1.163e-01   2.645 0.008176 ** 
+cb_humidv3.l2             1.002e-01  8.435e-02   1.187 0.235035    
+cb_humidv3.l3            -8.737e-02  9.448e-02  -0.925 0.355094    
+ns(time, df = df_time)1  -6.178e+01  9.971e+01  -0.620 0.535542    
+ns(time, df = df_time)2  -6.106e+01  1.000e+02  -0.610 0.541663    
+ns(time, df = df_time)3  -6.094e+01  9.989e+01  -0.610 0.541824    
+ns(time, df = df_time)4  -6.044e+01  9.997e+01  -0.605 0.545439    
+ns(time, df = df_time)5  -6.031e+01  9.992e+01  -0.604 0.546081    
+ns(time, df = df_time)6  -6.005e+01  9.994e+01  -0.601 0.547916    
+ns(time, df = df_time)7  -6.143e+01  9.992e+01  -0.615 0.538664    
+ns(time, df = df_time)8  -6.023e+01  9.992e+01  -0.603 0.546652    
+ns(time, df = df_time)9  -6.155e+01  9.994e+01  -0.616 0.537992    
+ns(time, df = df_time)10 -6.082e+01  9.995e+01  -0.608 0.542858    
+ns(time, df = df_time)11 -6.027e+01  9.993e+01  -0.603 0.546428    
+ns(time, df = df_time)12 -6.104e+01  9.994e+01  -0.611 0.541337    
+ns(time, df = df_time)13 -6.024e+01  9.992e+01  -0.603 0.546619    
+ns(time, df = df_time)14 -6.068e+01  9.993e+01  -0.607 0.543711    
+ns(time, df = df_time)15 -6.009e+01  9.992e+01  -0.601 0.547546    
+ns(time, df = df_time)16 -5.961e+01  9.993e+01  -0.597 0.550802    
+ns(time, df = df_time)17 -5.955e+01  9.996e+01  -0.596 0.551364    
+ns(time, df = df_time)18 -6.043e+01  9.994e+01  -0.605 0.545415    
+ns(time, df = df_time)19 -6.005e+01  9.994e+01  -0.601 0.547940    
+ns(time, df = df_time)20 -6.024e+01  9.994e+01  -0.603 0.546668    
+ns(time, df = df_time)21 -6.053e+01  9.992e+01  -0.606 0.544662    
+ns(time, df = df_time)22 -6.159e+01  9.993e+01  -0.616 0.537662    
+ns(time, df = df_time)23 -6.069e+01  9.991e+01  -0.607 0.543537    
+ns(time, df = df_time)24 -6.284e+01  9.994e+01  -0.629 0.529486    
+ns(time, df = df_time)25 -6.237e+01  9.995e+01  -0.624 0.532656    
+ns(time, df = df_time)26 -6.208e+01  9.994e+01  -0.621 0.534458    
+ns(time, df = df_time)27 -6.259e+01  9.995e+01  -0.626 0.531153    
+ns(time, df = df_time)28 -6.174e+01  9.992e+01  -0.618 0.536631    
+ns(time, df = df_time)29 -6.420e+01  9.993e+01  -0.642 0.520599    
+ns(time, df = df_time)30 -6.380e+01  9.992e+01  -0.639 0.523136    
+ns(time, df = df_time)31 -6.177e+01  9.992e+01  -0.618 0.536479    
+ns(time, df = df_time)32 -6.213e+01  9.995e+01  -0.622 0.534199    
+ns(time, df = df_time)33 -6.145e+01  9.995e+01  -0.615 0.538691    
+ns(time, df = df_time)34 -6.134e+01  9.993e+01  -0.614 0.539326    
+ns(time, df = df_time)35 -6.256e+01  9.995e+01  -0.626 0.531388    
+ns(time, df = df_time)36 -6.231e+01  9.992e+01  -0.624 0.532865    
+ns(time, df = df_time)37 -6.419e+01  9.994e+01  -0.642 0.520655    
+ns(time, df = df_time)38 -6.182e+01  9.991e+01  -0.619 0.536061    
+ns(time, df = df_time)39 -6.066e+01  9.994e+01  -0.607 0.543892    
+ns(time, df = df_time)40 -5.974e+01  9.994e+01  -0.598 0.549992    
+ns(time, df = df_time)41 -6.079e+01  9.994e+01  -0.608 0.543041    
+ns(time, df = df_time)42 -6.014e+01  9.993e+01  -0.602 0.547332    
+ns(time, df = df_time)43 -6.099e+01  9.993e+01  -0.610 0.541641    
+ns(time, df = df_time)44 -6.232e+01  9.993e+01  -0.624 0.532869    
+ns(time, df = df_time)45 -6.000e+01  9.992e+01  -0.600 0.548186    
+ns(time, df = df_time)46 -5.991e+01  9.993e+01  -0.600 0.548819    
+ns(time, df = df_time)47 -5.941e+01  9.995e+01  -0.594 0.552226    
+ns(time, df = df_time)48 -5.960e+01  9.994e+01  -0.596 0.550952    
+ns(time, df = df_time)49 -5.969e+01  9.994e+01  -0.597 0.550325    
+ns(time, df = df_time)50 -6.004e+01  9.994e+01  -0.601 0.547960    
+ns(time, df = df_time)51 -5.953e+01  9.993e+01  -0.596 0.551332    
+ns(time, df = df_time)52 -5.736e+01  9.992e+01  -0.574 0.565924    
+ns(time, df = df_time)53 -5.649e+01  9.992e+01  -0.565 0.571838    
+ns(time, df = df_time)54 -4.068e+01  7.145e+01  -0.569 0.569169    
+ns(time, df = df_time)55 -1.098e+02  1.854e+02  -0.592 0.553644    
+ns(time, df = df_time)56 -2.600e+01  4.297e+01  -0.605 0.545169    
+factor(mes)2             -1.466e-01  9.497e-02  -1.543 0.122738    
+factor(mes)3             -3.722e-02  1.422e-01  -0.262 0.793475    
+factor(mes)4              2.273e-01  1.698e-01   1.338 0.180835    
+factor(mes)5              4.611e-01  1.832e-01   2.517 0.011825 *  
+factor(mes)6              3.072e-01  1.988e-01   1.545 0.122264    
+factor(mes)7              4.112e-01  2.095e-01   1.963 0.049696 *  
+factor(mes)8              2.748e-01  2.108e-01   1.304 0.192363    
+factor(mes)9              1.358e-01  2.051e-01   0.662 0.507948    
+factor(mes)10            -6.142e-02  1.837e-01  -0.334 0.738189    
+factor(mes)11            -1.861e-01  1.382e-01  -1.346 0.178147    
+factor(mes)12            -3.198e-01  8.291e-02  -3.857 0.000115 ***
+factor(geocode)3300159    9.677e-01  1.313e-01   7.370 1.71e-13 ***
+factor(geocode)3300209   -1.612e+00  1.360e-01 -11.847  < 2e-16 ***
+factor(geocode)3300225   -2.824e-01  1.806e-01  -1.564 0.117883    
+factor(geocode)3300233   -8.240e-01  1.443e-01  -5.711 1.12e-08 ***
+factor(geocode)3300258   -9.483e-01  1.574e-01  -6.024 1.70e-09 ***
+factor(geocode)3300308   -5.329e-01  1.227e-01  -4.343 1.40e-05 ***
+factor(geocode)3300407   -1.025e-01  1.508e-01  -0.680 0.496685    
+factor(geocode)3300456   -1.894e+00  1.238e-01 -15.302  < 2e-16 ***
+factor(geocode)3300506   -5.135e-01  1.732e-01  -2.965 0.003027 ** 
+factor(geocode)3300605    3.532e-01  1.284e-01   2.751 0.005941 ** 
+factor(geocode)3300704   -1.208e+00  1.437e-01  -8.406  < 2e-16 ***
+factor(geocode)3300803   -4.061e-01  1.614e-01  -2.516 0.011862 *  
+factor(geocode)3300902   -1.989e-01  1.554e-01  -1.280 0.200418    
+factor(geocode)3300936   -3.592e-01  1.516e-01  -2.370 0.017791 *  
+factor(geocode)3300951   -6.891e-01  1.967e-01  -3.503 0.000460 ***
+factor(geocode)3301009   -4.678e-01  1.408e-01  -3.322 0.000895 ***
+factor(geocode)3301108   -3.694e-01  1.510e-01  -2.446 0.014432 *  
+factor(geocode)3301157   -1.012e-01  1.606e-01  -0.631 0.528363    
+factor(geocode)3301207    1.940e-01  1.676e-01   1.157 0.247252    
+factor(geocode)3301306   -9.097e-01  1.325e-01  -6.864 6.72e-12 ***
+factor(geocode)3301405   -1.304e+00  1.519e-01  -8.586  < 2e-16 ***
+factor(geocode)3301504    7.255e-02  1.681e-01   0.432 0.666087    
+factor(geocode)3301603   -5.766e-02  1.963e-01  -0.294 0.768970    
+factor(geocode)3301702   -1.485e+00  1.222e-01 -12.155  < 2e-16 ***
+factor(geocode)3301801   -6.560e-01  1.545e-01  -4.245 2.18e-05 ***
+factor(geocode)3301850   -1.396e+00  1.320e-01 -10.576  < 2e-16 ***
+factor(geocode)3301876    3.886e-01  1.329e-01   2.924 0.003454 ** 
+factor(geocode)3301900    2.042e-01  1.262e-01   1.618 0.105679    
+factor(geocode)3302007   -9.315e-01  1.194e-01  -7.799 6.23e-15 ***
+factor(geocode)3302056    7.263e-01  1.430e-01   5.079 3.79e-07 ***
+factor(geocode)3302106   -2.927e-01  1.383e-01  -2.116 0.034312 *  
+factor(geocode)3302205    9.504e-01  1.273e-01   7.467 8.19e-14 ***
+factor(geocode)3302254    5.608e-01  1.604e-01   3.496 0.000472 ***
+factor(geocode)3302270   -1.484e+00  1.310e-01 -11.324  < 2e-16 ***
+factor(geocode)3302304   -7.301e-01  1.847e-01  -3.953 7.72e-05 ***
+factor(geocode)3302403   -5.871e-01  1.374e-01  -4.274 1.92e-05 ***
+factor(geocode)3302452    2.453e-01  1.651e-01   1.485 0.137490    
+factor(geocode)3302502   -2.138e+00  1.350e-01 -15.833  < 2e-16 ***
+factor(geocode)3302601   -9.974e-01  1.349e-01  -7.394 1.43e-13 ***
+factor(geocode)3302700   -3.769e-01  1.356e-01  -2.779 0.005449 ** 
+factor(geocode)3302809   -1.146e+00  1.589e-01  -7.211 5.56e-13 ***
+factor(geocode)3302858   -2.917e+00  1.451e-01 -20.103  < 2e-16 ***
+factor(geocode)3302908   -9.007e-01  1.572e-01  -5.731 9.98e-09 ***
+factor(geocode)3303005   -3.477e-01  1.480e-01  -2.350 0.018784 *  
+factor(geocode)3303104    1.207e+00  1.365e-01   8.846  < 2e-16 ***
+factor(geocode)3303203   -3.591e+00  1.619e-01 -22.182  < 2e-16 ***
+factor(geocode)3303302   -1.007e+00  1.329e-01  -7.578 3.50e-14 ***
+factor(geocode)3303401    2.787e-01  1.493e-01   1.867 0.061949 .  
+factor(geocode)3303500   -1.966e+00  1.220e-01 -16.115  < 2e-16 ***
+factor(geocode)3303609   -1.438e+00  1.441e-01  -9.979  < 2e-16 ***
+factor(geocode)3303708   -1.248e+00  1.618e-01  -7.713 1.23e-14 ***
+factor(geocode)3303807    1.061e+00  1.186e-01   8.950  < 2e-16 ***
+factor(geocode)3303856   -2.119e-01  1.445e-01  -1.467 0.142477    
+factor(geocode)3303906   -1.951e+00  1.220e-01 -15.990  < 2e-16 ***
+factor(geocode)3303955    3.296e-01  1.395e-01   2.362 0.018171 *  
+factor(geocode)3304003    1.777e+00  1.286e-01  13.820  < 2e-16 ***
+factor(geocode)3304102    8.358e-01  1.370e-01   6.103 1.04e-09 ***
+factor(geocode)3304110   -9.849e-02  1.492e-01  -0.660 0.509210    
+factor(geocode)3304128   -4.327e-01  1.618e-01  -2.674 0.007501 ** 
+factor(geocode)3304144   -2.498e+00  1.420e-01 -17.588  < 2e-16 ***
+factor(geocode)3304151   -5.233e-01  1.483e-01  -3.528 0.000418 ***
+factor(geocode)3304201    1.878e+00  1.791e-01  10.486  < 2e-16 ***
+factor(geocode)3304300   -1.899e+00  1.393e-01 -13.630  < 2e-16 ***
+factor(geocode)3304409   -1.262e+00  1.737e-01  -7.265 3.73e-13 ***
+factor(geocode)3304508   -8.710e-01  1.844e-01  -4.725 2.31e-06 ***
+factor(geocode)3304524   -2.378e-01  1.185e-01  -2.006 0.044812 *  
+factor(geocode)3304557   -9.764e-01  1.223e-01  -7.985 1.41e-15 ***
+factor(geocode)3304607   -3.622e+00  3.177e-01 -11.401  < 2e-16 ***
+factor(geocode)3304706    1.264e-01  1.391e-01   0.909 0.363394    
+factor(geocode)3304755    2.442e-01  1.467e-01   1.664 0.096127 .  
+factor(geocode)3304805   -1.551e+00  1.510e-01 -10.271  < 2e-16 ***
+factor(geocode)3304904   -1.313e+00  1.243e-01 -10.566  < 2e-16 ***
+factor(geocode)3305000   -1.990e+00  1.726e-01 -11.527  < 2e-16 ***
+factor(geocode)3305109   -2.229e+00  1.281e-01 -17.395  < 2e-16 ***
+factor(geocode)3305133    6.381e-01  1.528e-01   4.177 2.96e-05 ***
+factor(geocode)3305158   -1.452e+00  2.113e-01  -6.872 6.35e-12 ***
+factor(geocode)3305208   -5.937e-01  1.342e-01  -4.425 9.66e-06 ***
+factor(geocode)3305307   -5.269e-01  1.728e-01  -3.049 0.002296 ** 
+factor(geocode)3305406    2.297e-01  1.548e-01   1.484 0.137766    
+factor(geocode)3305505    3.858e-01  1.362e-01   2.833 0.004614 ** 
+factor(geocode)3305554   -1.049e+00  1.241e-01  -8.451  < 2e-16 ***
+factor(geocode)3305604   -2.464e+00  1.833e-01 -13.438  < 2e-16 ***
+factor(geocode)3305703   -6.013e-01  1.981e-01  -3.036 0.002396 ** 
+factor(geocode)3305752   -1.180e+00  1.365e-01  -8.643  < 2e-16 ***
+factor(geocode)3305802   -2.124e+00  1.659e-01 -12.798  < 2e-16 ***
+factor(geocode)3305901   -2.101e+00  2.296e-01  -9.150  < 2e-16 ***
+factor(geocode)3306008   -5.578e-03  1.487e-01  -0.038 0.970080    
+factor(geocode)3306107   -7.215e-02  1.558e-01  -0.463 0.643223    
+factor(geocode)3306156    1.457e-01  1.459e-01   0.998 0.318153    
+factor(geocode)3306206    1.153e+00  1.333e-01   8.656  < 2e-16 ***
+factor(geocode)3306305    1.627e-01  1.269e-01   1.282 0.199967    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+(Dispersion parameter for Negative Binomial(0.5224) family taken to be 1)
+
+    Null deviance: 80702  on 36247  degrees of freedom
+Residual deviance: 26173  on 36062  degrees of freedom
+  (1104 observations deleted due to missingness)
+AIC: 109838
+
+Number of Fisher Scoring iterations: 1
+
+
+              Theta:  0.52238 
+          Std. Err.:  0.00703 
+
+ 2 x log-likelihood:  -109464.36700 

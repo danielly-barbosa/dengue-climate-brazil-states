@@ -1,0 +1,8 @@
+"metric","value"
+"n_before_population_join",74692
+"n_after_population_join",74692
+"row_count_changed_after_join",0
+"duplicated_date_geocode_before_join",3300
+"duplicated_date_geocode_after_join",3300
+"missing_population_after_join",0
+"missing_offset_after_join",0

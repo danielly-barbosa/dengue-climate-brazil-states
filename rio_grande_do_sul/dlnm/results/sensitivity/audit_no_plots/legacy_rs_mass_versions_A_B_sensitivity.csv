@@ -1,0 +1,7 @@
+"source","version","model_id","model_type","exposure_main","n_final","geocodes","geocodes_removed","aic","theta","file_path"
+"legacy_rs_mass","A_filtered_lt10","indexP","individual","indexP",59100,150,51,56397.85,0.3659,"rio_grande_do_sul/Resultados_DLNM_MASS/indice P_individual/versao_A_filtro_geocodes/resumo_versaoA.txt"
+"legacy_rs_mass","B_no_geocode_factor","indexP","individual","indexP",76830,195,6,71217.51,0.0851,"rio_grande_do_sul/Resultados_DLNM_MASS/indice P_individual/versao_B_sem_geocode/resumo_versaoB.txt"
+"legacy_rs_mass","A_filtered_lt10","precip_tot","individual","precip_tot",59100,150,51,56666.6,0.3504,"rio_grande_do_sul/Resultados_DLNM_MASS/precip_tot/versao_A/resumo_versaoA.txt"
+"legacy_rs_mass","B_no_geocode_factor","precip_tot","individual","precip_tot",76830,195,6,71299.12,0.0847,"rio_grande_do_sul/Resultados_DLNM_MASS/precip_tot/versao_B/resumo_versaoB.txt"
+"legacy_rs_mass","A_filtered_lt10","temp_max_precip_humid","combined","temp_max",59100,150,51,56713.89,0.348,"rio_grande_do_sul/Resultados_DLNM_MASS/combinado_temp_max/versao_A/resumo_versaoA.txt"
+"legacy_rs_mass","B_no_geocode_factor","temp_max_precip_humid","combined","temp_max",76830,195,6,70983.96,0.0875,"rio_grande_do_sul/Resultados_DLNM_MASS/combinado_temp_max/versao_B/resumo_versaoB.txt"

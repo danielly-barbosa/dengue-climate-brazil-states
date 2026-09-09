@@ -1,0 +1,10 @@
+"model_id","model_type","exposure_main","n_final","geocodes","aic","bic"
+"temp_max_precip_humid","combined","temp_max",60900,150,56241.7720441529,58335.7398295438
+"temp_med_precip_humid","combined","temp_med",60900,150,56275.3495062296,58369.3172916205
+"temp_min_precip_humid","combined","temp_min",60900,150,56288.4995288417,58382.4673142325
+"indexP","individual","indexP",60900,150,55919.1086166028,57959.1544847732
+"precip_tot","individual","precip_tot",60900,150,56186.5319250274,58226.5777931979
+"rel_humid_med","individual","rel_humid_med",60900,150,56272.5157899835,58312.561658154
+"temp_max","individual","temp_max",60900,150,56235.6921563621,58275.7380245325
+"temp_med","individual","temp_med",60900,150,56268.3474908389,58308.3933590094
+"temp_min","individual","temp_min",60900,150,56279.5171642373,58319.5630324078

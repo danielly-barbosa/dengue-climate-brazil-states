@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: [master, main]
+    tags: ['v*']
+  pull_request:
+    branches: [master, main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-repo:
+    name: Repository validation (validate_repo.py)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas numpy
+
+      - name: Run repository self-test
+        run: python validate_repo.py
+
+  r-syntax-check:
+    name: R syntax check (parse only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.0'
+          use-public-rspm: true
+
+      - name: List R files to be checked
+        run: |
+          Rscript -e 'cat(length(list.files(pattern="\\.R$", recursive=TRUE)), "\n")'
+
+      - name: Parse-check all R files
+        run: |
+          Rscript -e '
+            files <- list.files(pattern = "\\.R$", recursive = TRUE, full.names = TRUE)
+            errors <- 0
+            for (f in files) {
+              tryCatch(parse(file = f), error = function(e) {
+                cat("FAIL:", f, "-", conditionMessage(e), "\n")
+                errors <<- errors + 1
+              })
+            }
+            if (errors > 0) stop(paste("R syntax errors:", errors))
+            cat("OK:", length(files), "files parsed\n")
+          '

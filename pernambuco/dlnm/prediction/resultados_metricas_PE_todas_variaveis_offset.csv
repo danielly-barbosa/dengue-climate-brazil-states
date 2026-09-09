@@ -1,0 +1,8 @@
+"estado","modelo","variaveis","familia_usada","offset_usado","MAE","RMSE"
+"PE","Base","casos_dengue ~ tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",429.335301481309,633.287376433333
+"PE","Índice P","casos_dengue ~ indiceP + tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",432.148365322967,613.261842820653
+"PE","Temperatura Média","casos_dengue ~ temp_media + tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",428.129873236803,608.591667016245
+"PE","Temperatura Mínima","casos_dengue ~ temp_minima + tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",428.775812763608,615.114118405445
+"PE","Temperatura Máxima","casos_dengue ~ temp_maxima + tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",428.76841651058,615.734313520972
+"PE","Precipitação","casos_dengue ~ precipitacao + tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",441.298393534392,643.606631297157
+"PE","Umidade","casos_dengue ~ umidade + tempo + sin_ano + cos_ano + offset(log(populacao))","binomial_negativa","sim_populacao",427.383911917128,641.336090486895
